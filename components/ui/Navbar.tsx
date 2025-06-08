@@ -54,7 +54,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className={`${DM_SansFont.className} w-full flex items-center px-6 py-2 z-50 h-24 bg-background`}>
+    <nav className={`${DM_SansFont.className} fixed w-full flex items-center px-6 py-2 z-50 h-24 bg-background`}>
         <div className='container mx-auto flex flex-row items-center justify-between'>
 
           {/* Hamburger */}
@@ -101,7 +101,7 @@ export default function Navbar() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 1 }}
             onClick={() => handleNavigation('/login')}
-            className=' px-4 py-2 text-foreground hover:bg-foreground hover:text-background border-2 border-foreground rounded-lg'
+            className=' px-4 py-2 text-foreground hover:bg-foreground hover:text-background border-2 border-foreground cursor-pointer rounded-lg'
           >
             Log in
           </motion.button>

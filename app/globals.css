@@ -3,9 +3,13 @@
 :root {
   --background: #13312C;
   --foreground: #FFF0C5;
+  --light: #FAF6EC;
+  --light-2: #F0E9D8;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-light: var(--light);
+  --color-light-2: var(--light-2);
 }

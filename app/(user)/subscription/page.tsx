@@ -1,6 +1,6 @@
 "use client";
 
-export default function About() {
+export default function Subscription() {
   return (
     <div>page</div>
   )
