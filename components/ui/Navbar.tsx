@@ -54,7 +54,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className={`${DM_SansFont.className} fixed w-full flex items-center px-6 py-2 z-50 h-24 bg-background`}>
+    <nav className={`${DM_SansFont.className} fixed w-full flex items-center px-6 py-2 z-50 h-24 bg-dark-green`}>
         <div className='container mx-auto flex flex-row items-center justify-between'>
 
           {/* Hamburger */}
@@ -62,7 +62,7 @@ export default function Navbar() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 1 }}
             onClick={() => setHamburgerOpen(true)}
-            className='lg:hidden flex items-center justify-center p-2 rounded-md text-foreground cursor-pointer'
+            className='lg:hidden flex items-center justify-center p-2 rounded-md text-beige cursor-pointer'
           >
             <Hamburger width={40} height={40} />
           </motion.button>
@@ -75,7 +75,7 @@ export default function Navbar() {
               className='flex flex-row gap-3 items-center justify-center cursor-pointer'
           >
               <Logo width={48} height={48} />
-              <h1 className={`${dynaPuff.className} text-2xl text-foreground`}>SEA Catering</h1>
+              <h1 className={`${dynaPuff.className} text-2xl text-beige`}>SEA Catering</h1>
           </motion.button>
 
           {/* For the navigation */}
@@ -87,7 +87,7 @@ export default function Navbar() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 1 }}
                   onClick={() => handleNavigation(page.link)}
-                  className='text-lg text-foreground cursor-pointer'
+                  className='text-lg text-beige cursor-pointer'
                 >
                   {page.name}
                 </motion.button>
@@ -101,7 +101,7 @@ export default function Navbar() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 1 }}
             onClick={() => handleNavigation('/login')}
-            className=' px-4 py-2 text-foreground hover:bg-foreground hover:text-background border-2 border-foreground cursor-pointer rounded-lg'
+            className=' px-4 py-2 text-beige hover:bg-beige hover:text-dark-green border-2 border-beige cursor-pointer rounded-lg'
           >
             Log in
           </motion.button>
@@ -124,7 +124,7 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
-                className='absolute top-0 left-0 w-full bg-background z-45 p-4 flex flex-col items-center gap-4 lg:hidden'
+                className='absolute top-0 left-0 w-full bg-dark-green z-45 p-4 flex flex-col items-center gap-4 lg:hidden'
                 onClick={(e) => e.stopPropagation()}
               >
                 {pages.map((page) => (
@@ -133,7 +133,7 @@ export default function Navbar() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 1 }}
                     onClick={() => { handleNavigation(page.link)}}
-                    className='text-lg text-foreground cursor-pointer'
+                    className='text-lg text-beige cursor-pointer'
                   >
                     {page.name}
                   </motion.button>
