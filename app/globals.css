@@ -7,6 +7,7 @@
   --beige: #FFF0C5;
   --light-beige: #FAF6EC;
   --light-beige-2: #F0E9D8;
+  --dark-grey: #333333;
 }
 
 @theme inline {
@@ -16,4 +17,5 @@
   --color-beige: var(--beige);
   --color-light-beige: var(--light-beige);
   --color-light-beige-2: var(--light-beige-2);
+  --color-dark-grey: var(--dark-grey);
 }

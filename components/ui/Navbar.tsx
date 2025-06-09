@@ -54,10 +54,8 @@ export default function Navbar() {
   };
 
   return (
-    <nav className={`${DM_SansFont.className} fixed w-full flex items-center px-6 py-2 z-50 h-24 bg-dark-green`}>
+    <nav className={`${DM_SansFont.className} fixed w-full flex items-center px-6 py-2 z-50 h-18 bg-dark-green`}>
         <div className='container mx-auto flex flex-row items-center justify-between'>
-
-          {/* Hamburger */}
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 1 }}
@@ -66,8 +64,6 @@ export default function Navbar() {
           >
             <Hamburger width={40} height={40} />
           </motion.button>
-
-          {/* Logo SEA Catering - Route to go back to homepage */}
           <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 1 }}
@@ -77,8 +73,6 @@ export default function Navbar() {
               <Logo width={48} height={48} />
               <h1 className={`${dynaPuff.className} text-2xl text-beige`}>SEA Catering</h1>
           </motion.button>
-
-          {/* For the navigation */}
           <div className='grow hidden lg:block'>
             <div className='flex flex-row xl:gap-8 lg:gap-4 items-center justify-center'> 
               {pages.map((page) => (
@@ -95,8 +89,6 @@ export default function Navbar() {
               }
             </div>
           </div>
-
-          {/* Login button */}
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 1 }}
@@ -107,8 +99,6 @@ export default function Navbar() {
           </motion.button>
 
         </div>
-
-        {/* Hamburger Menu for mobile view */}
         <AnimatePresence>
           {hamburgerOpen && (
             <motion.div
