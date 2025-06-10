@@ -54,7 +54,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className={`${DM_SansFont.className} fixed w-full flex items-center px-6 py-2 z-50 h-18 bg-dark-green`}>
+    <nav className={`${DM_SansFont.className} fixed w-full flex items-center px-6 py-2 z-55 h-18 bg-dark-green`}>
         <div className='container mx-auto flex flex-row items-center justify-between'>
           <motion.button
             whileHover={{ scale: 1.05 }}

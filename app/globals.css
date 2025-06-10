@@ -19,3 +19,11 @@
   --color-light-beige-2: var(--light-beige-2);
   --color-dark-grey: var(--dark-grey);
 }
+
+.menu-container {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox, Safari 18.2+, Chromium 121+ */
+}
+.menu-container::-webkit-scrollbar { 
+    display: none;  /* Older Safari and Chromium */
+}

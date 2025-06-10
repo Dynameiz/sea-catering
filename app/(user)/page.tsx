@@ -4,8 +4,8 @@ import { DM_Sans } from "next/font/google";
 import { motion } from "framer-motion";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 import { useRouter } from "next/navigation";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import Card from "@/components/ui/Card";
+import MenuContainer from "@/components/ui/MenuContainer";
+import { IconBrandGithub, IconBrandInstagram, IconBrandTiktok, IconBrandX, IconBrandYoutube } from "@tabler/icons-react";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -54,31 +54,69 @@ const testimonials = [
 
 const thisWeekMenu = [
   {
-    name: "Sweet Madame",
+    name: "Rendang",
     description: "",
-    src: "",
+    src: "rendang.jpg",
   },
   {
-    name: "Jueyun Chili Chicken",
+    name: "Steak",
     description: "",
-    src: "",
+    src: "steak.jpg",
   },
   {
-    name: "Spicy Tuna Poke Bowl",
+    name: "Taco",
     description: "",
-    src: "",
+    src: "taco.jpg",
+  },
+  {
+    name: "Chicken Lava",
+    description: "",
+    src: "cooked-chicken.webp",
+  },
+  {
+    name: "Ichiraku Ramen",
+    description: "",
+    src: "ichiraku-ramen.webp",
+  },
+  {
+    name: "Fifi Fefe",
+    description: "",
+    src: "fifi-fefe.jpg",
   },
   {
     name: "Ais Krim ABCD",
     description: "",
-    src: "",
-  },
-  {
-    name: "Fifi Feyfey",
-    description: "",
-    src: "",
+    src: "abcd.png",
   },
 ];
+
+const socialMediaLinks = [
+  {
+    name: "Instagram",
+    icon: <IconBrandInstagram color="#333333" size={28}/>,
+    link: "https://www.instagram.com/not_hanz/"
+  },
+  {
+    name: "X",
+    icon: <IconBrandX color="#333333" size={28}/>,
+    link: "https://x.com/COMPFEST"
+  },
+  {
+    name: "TikTok",
+    icon: <IconBrandTiktok color="#333333" size={28}/>,
+    link: "https://www.tiktok.com/@compfest"
+  },
+  {
+    name: "YouTube",
+    icon: <IconBrandYoutube color="#333333" size={28}/>,
+    link: "https://www.youtube.com/@COMPFESTUI"
+  },
+  {
+    name: "GitHub",
+    icon: <IconBrandGithub color="#333333" size={28}/>,
+    link: "https://github.com/Dynameiz/sea-catering"
+  },
+]
 
 export default function Home() {
 
@@ -165,24 +203,44 @@ export default function Home() {
       <section className="flex flex-col items-center justify-center w-full bg-light-beige">
         <div className="container mx-auto flex flex-col items-center justify-center px-4 py-12">
           <h1 className="text-4xl lg:text-5xl font-bold text-center border-b-2 pb-3 border-green">This Week's Menu</h1>
-          <Carousel className="container mx-auto mt-8 w-full max-w-6xl">
-            <CarouselContent className="flex flex-row justify-center gap-2 overflow-clip">
-              {thisWeekMenu.map((menu, index) => (
-                <CarouselItem className="basis-1/3">
-                  <Card props={menu}/>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
+          <div className="w-full mt-8">
+            <MenuContainer>
+              <div className="flex gap-6 pb-4">
+                {thisWeekMenu.map((item, idx) => (
+                  <motion.div
+                    key={idx}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 1 }}
+                    className="max-w-[280px] min-w-[280px] bg-white rounded-xl shadow-md flex flex-col items-center cursor-pointer flex-shrink-0"
+                  >
+                    <img
+                      src={item.src || "dummy.png"}
+                      alt={item.name}
+                      className="w-full aspect-square object-cover rounded-lg"
+                      draggable="false"
+                    />
+                    <h2 className="text-xl font-semibold py-4">{item.name}</h2>
+                    {item.description && <p className="text-sm text-gray-600">{item.description}</p>}
+                  </motion.div>
+                ))}
+              </div>
+            </MenuContainer>
+          </div>
         </div>
       </section>
-      <footer className="flex items-center justify-center w-full h-48 bg-dark-grey text-white">
-        <div className="container mx-auto text-center">
-          <p className="text-lg">© 2025 SEA Catering. All rights reserved.</p>
-          <p className="text-sm mt-2">Made with ❤️ by SEA Catering Team</p>
+      <footer className="flex flex-col items-center justify-center w-full h-48 bg-dark-grey text-white">
+        <div className="flex flex-row items-center justify-center gap-6 mb-4">
+          {socialMediaLinks.map((link, index) => (
+            <motion.a href={link.link} target="_blank" rel="noopener noreferrer" key={index} className="text-2xl bg-white p-2 rounded-full"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {link.icon}
+            </motion.a>
+          ))}
         </div>
+        <h3 className="text-2xl font-semibold mb-4">Brian - 08123456789</h3>
+        <p className="absolute bottom-0 w-full mb-4 text-lg text-center">© 2025 SEA Catering. All rights reserved.</p>
       </footer>
     </div>
   );
