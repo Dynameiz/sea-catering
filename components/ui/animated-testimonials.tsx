@@ -46,9 +46,15 @@ export const AnimatedTestimonials = ({
     }
   }, [autoplay]);
 
-  const randomRotateY = () => {
-    return Math.floor(Math.random() * 21) - 10;
-  };
+  // Generate random rotations only on the client after mount to avoid hydration mismatch
+  const [rotations, setRotations] = useState<number[]>([]);
+
+  useEffect(() => {
+    setRotations(
+      testimonials.map(() => Math.floor(Math.random() * 21) - 10)
+    );
+  }, [testimonials]);
+
   return (
     <div className={`mx-auto max-w-sm px-4 py-20 ${dmSans.className} antialiased md:max-w-4xl md:pt-8 lg:px-12`}>
       <div className="relative grid grid-cols-1 gap-20 md:grid-cols-2">
@@ -62,13 +68,13 @@ export const AnimatedTestimonials = ({
                     opacity: 0,
                     scale: 0.9,
                     z: -100,
-                    rotate: randomRotateY(),
+                    rotate: rotations[index] ?? 0,
                   }}
                   animate={{
                     opacity: isActive(index) ? 1 : 0.7,
                     scale: isActive(index) ? 1 : 0.95,
                     z: isActive(index) ? 0 : -100,
-                    rotate: isActive(index) ? 0 : randomRotateY(),
+                    rotate: isActive(index) ? 0 : (rotations[index] ?? 0),
                     zIndex: isActive(index)
                       ? 40
                       : testimonials.length + 2 - index,
@@ -78,7 +84,7 @@ export const AnimatedTestimonials = ({
                     opacity: 0,
                     scale: 0.9,
                     z: 100,
-                    rotate: randomRotateY(),
+                    rotate: rotations[index] ?? 0,
                   }}
                   transition={{
                     duration: 0.4,
@@ -154,13 +160,13 @@ export const AnimatedTestimonials = ({
           <div className="flex gap-4 pt-12 md:pt-0">
             <button
               onClick={handlePrev}
-              className="group/button flex h-7 w-7 items-center justify-center rounded-full bg-beige cursor-pointer"
+              className="group/button flex h-7 w-7 items-center justify-center rounded-full bg-beige shadow-md cursor-pointer"
             >
               <IconArrowLeft className="h-5 w-5 text-dark-green transition-transform duration-300 group-hover/button:rotate-12" />
             </button>
             <button
               onClick={handleNext}
-              className="group/button flex h-7 w-7 items-center justify-center rounded-full bg-beige cursor-pointer"
+              className="group/button flex h-7 w-7 items-center justify-center rounded-full bg-beige shadow-md cursor-pointer"
             >
               <IconArrowRight className="h-5 w-5 text-dark-green transition-transform duration-300 group-hover/button:-rotate-12" />
             </button>

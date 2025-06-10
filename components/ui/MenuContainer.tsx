@@ -3,7 +3,7 @@
 export default function MenuContainer({children}: {children: React.ReactNode}) {
   return (
     <div
-        className="overflow-x-auto menu-container rounded-lg p-4"
+        className="overflow-x-auto menu-container rounded-lg p-4 mb-4"
         style={{ userSelect: "none" }}
         onMouseDown={(e) => {
         const container = e.currentTarget;
