@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Subscription {
+  id          Int   @id @default(autoincrement())
+  fullName     String
+  phoneNumber  String
+  allergies    String?
+  createdAt    DateTime @default(now())
+  mealPlan     MealPlan @relation(fields: [mealPlanId], references: [id])
+  mealPlanId   Int
+  meals        MealType[]
+  deliveryDays DeliveryDay[]
+}
+
+model MealPlan {
+  id          Int   @id @default(autoincrement())
+  name        String
+  price       Int
+  description String
+  imageUrl    String?
+  subscriptions Subscription[]
+}
+
+model MealType {
+  id          Int   @id @default(autoincrement())
+  type           String
+  subscription   Subscription  @relation(fields: [subscriptionId], references: [id])
+  subscriptionId Int
+}
+
+model DeliveryDay {
+  id          Int   @id @default(autoincrement())
+  day            String
+  subscription   Subscription  @relation(fields: [subscriptionId], references: [id])
+  subscriptionId Int
+}
+
+model Testimonial {
+  id          Int   @id @default(autoincrement())
+  customerName String
+  message      String
+  rating       Int
+  createdAt    DateTime @default(now())
+}
