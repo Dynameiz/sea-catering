@@ -8,45 +8,56 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id            Int      @id @default(autoincrement())
+  username      String   @unique
+  fullName      String
+  phoneNumber   String   @unique
+  password      String
+  createdAt     DateTime @default(now())
+  subscription  Subscription[]
+  role          String @default("user")
+}
+
 model Subscription {
-  id          Int   @id @default(autoincrement())
-  fullName     String
-  phoneNumber  String
-  allergies    String?
-  createdAt    DateTime @default(now())
-  mealPlan     MealPlan @relation(fields: [mealPlanId], references: [id])
-  mealPlanId   Int
-  meals        MealType[]
-  deliveryDays DeliveryDay[]
+  id            Int   @id @default(autoincrement())
+  user          User @relation(fields: [userId], references: [id])
+  userId        Int
+  allergies     String?
+  createdAt     DateTime @default(now())
+  mealPlan      MealPlan @relation(fields: [mealPlanId], references: [id])
+  mealPlanId    Int
+  meals         MealType[]
+  deliveryDays  DeliveryDay[]
 }
 
 model MealPlan {
-  id          Int   @id @default(autoincrement())
-  name        String
-  price       Int
-  description String
-  imageUrl    String?
+  id            Int   @id @default(autoincrement())
+  name          String
+  price         Int
+  description   String
+  imageUrl      String?
   subscriptions Subscription[]
 }
 
 model MealType {
-  id          Int   @id @default(autoincrement())
-  type           String
-  subscription   Subscription  @relation(fields: [subscriptionId], references: [id])
-  subscriptionId Int
+  id              Int   @id @default(autoincrement())
+  type            String
+  subscription    Subscription  @relation(fields: [subscriptionId], references: [id])
+  subscriptionId  Int
 }
 
 model DeliveryDay {
-  id          Int   @id @default(autoincrement())
-  day            String
-  subscription   Subscription  @relation(fields: [subscriptionId], references: [id])
-  subscriptionId Int
+  id              Int   @id @default(autoincrement())
+  day             String
+  subscription    Subscription  @relation(fields: [subscriptionId], references: [id])
+  subscriptionId  Int
 }
 
 model Testimonial {
-  id          Int   @id @default(autoincrement())
-  customerName String
-  message      String
-  rating       Int
-  createdAt    DateTime @default(now())
+  id            Int   @id @default(autoincrement())
+  customerName  String
+  message       String
+  rating        Int
+  createdAt     DateTime @default(now())
 }
