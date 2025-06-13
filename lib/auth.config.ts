@@ -1,6 +1,6 @@
 import Credentials from "next-auth/providers/credentials";
 import type { NextAuthConfig } from "next-auth";
-import { prisma } from "@/lib/prisma"; // Update path to match your `prisma.ts`
+import { prisma } from "./prisma";
 import { compare } from "bcrypt";
 
 const authConfig = {
