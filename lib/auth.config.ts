@@ -6,34 +6,40 @@ import { compare } from "bcrypt";
 const authConfig = {
   providers: [
     Credentials({
-      name: "Phone login",
+      name: "Login",
       credentials: {
-        phoneNumber: { label: "Phone Number", type: "text" },
+        username: { label: "Username", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const { phoneNumber, password } = credentials as {
-          phoneNumber: string;
+        const { username, password } = credentials as {
+          username: string;
           password: string;
         };
 
         const user = await prisma.user.findUnique({
-          where: { phoneNumber },
+          where: { username },
         });
 
         if (!user) return null;
 
-        const isValid = await compare(password, user.hashedPassword);
+        const isValid = await compare(password, user.password);
         if (!isValid) return null;
 
         return {
           id: user.id.toString(),
-          name: user.name,
-          phoneNumber: user.phoneNumber,
+          username: user.username,
         };
       },
     }),
   ],
+  session: {
+    strategy: "jwt",
+  },
+  pages: {
+    signIn: "/login",
+  },
+  secret: process.env.AUTH_SECRET,
 } satisfies NextAuthConfig;
 
 export default authConfig;
