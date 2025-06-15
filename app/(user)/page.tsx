@@ -15,6 +15,7 @@ import {
 import { useState } from "react";
 import Logo from "@/components/assets/Logo";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import Image from "next/image";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -27,19 +28,19 @@ const guides = [
     title: "Choose Your Meals",
     description:
       "Select from a variety of healthy, delicious meals that fit your dietary preferences and lifestyle.",
-    src: "step1.png",
+    src: "/step1.png",
   },
   {
     title: "Customize Your Plan",
     description:
       "Tailor your meal plan to suit your needs, whether it's for weight loss, muscle gain, or just healthy eating.",
-    src: "step2.png",
+    src: "/step2.png",
   },
   {
     title: "Enjoy Fresh Deliveries",
     description:
       "Receive fresh, never frozen meals delivered right to your doorstep, ready to heat and enjoy.",
-    src: "step3.png",
+    src: "/step3.png",
   },
 ];
 
@@ -71,42 +72,42 @@ const thisWeekMenu = [
   {
     name: "Rendang",
     description: "",
-    src: "rendang.jpg",
+    src: "/rendang.jpg",
   },
   {
     name: "Steak",
     description: "",
-    src: "steak.jpg",
+    src: "/steak.jpg",
   },
   {
     name: "Taco",
     description: "",
-    src: "taco.jpg",
+    src: "/taco.jpg",
   },
   {
     name: "Salad",
     description: "",
-    src: "salad.jpg",
+    src: "/salad.jpg",
   },
   {
     name: "Steve's Lava Chicken",
     description: "",
-    src: "cooked-chicken.webp",
+    src: "/cooked-chicken.webp",
   },
   {
     name: "Ichiraku Ramen",
     description: "",
-    src: "ichiraku-ramen.webp",
+    src: "/ichiraku-ramen.webp",
   },
   {
     name: "Fifi Fefe",
     description: "",
-    src: "fifi-fefe.jpg",
+    src: "/fifi-fefe.jpg",
   },
   {
     name: "Ais Krim ABCD",
     description: "",
-    src: "abcd.png",
+    src: "/abcd.png",
   },
 ];
 
@@ -219,10 +220,13 @@ export default function Home() {
               transition={{ delay: index * 0.2, duration: 0.5 }}
               className="flex flex-col items-center text-center"
             >
-              <img
-                src={guide.src}
-                alt={guide.title}
-                className="w-32 h-32 mb-4"
+              <Image
+              src={guide.src}
+              alt={guide.title}
+              width={128}
+              height={128}
+              className="w-32 h-32 mb-4 object-contain"
+              draggable={false}
               />
               <h2 className="text-2xl font-semibold mb-2">{guide.title}</h2>
               <p className="text-lg">{guide.description}</p>
@@ -249,31 +253,33 @@ export default function Home() {
       <section className="flex flex-col items-center justify-center w-full bg-light-beige">
         <div className="container mx-auto flex flex-col items-center justify-center px-4 py-12">
           <h1 className="text-4xl lg:text-5xl font-bold text-center border-b-2 pb-3 border-green">
-            This Week's Menu
+            Our Menu
           </h1>
           <div className="w-full mt-8">
             <MenuContainer>
               <div className="flex gap-6 pb-4">
                 {thisWeekMenu.map((item, idx) => (
-                  <motion.div
+                    <motion.div
                     key={idx}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 1 }}
                     className="max-w-[280px] min-w-[280px] bg-white rounded-xl shadow-md flex flex-col items-center cursor-pointer flex-shrink-0"
-                  >
-                    <img
+                    >
+                    <Image
                       src={item.src || "dummy.png"}
                       alt={item.name}
+                      width={280}
+                      height={280}
                       className="w-full aspect-square object-cover rounded-lg"
-                      draggable="false"
+                      draggable={false}
                     />
                     <h2 className="text-xl font-semibold py-4">{item.name}</h2>
                     {item.description && (
                       <p className="text-sm text-gray-600">
-                        {item.description}
+                      {item.description}
                       </p>
                     )}
-                  </motion.div>
+                    </motion.div>
                 ))}
               </div>
             </MenuContainer>
@@ -346,14 +352,16 @@ export default function Home() {
         </div>
         
         <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3 lg:[&>*:first-child]:col-span-1 lg:[&>*:last-child]:col-span-2 mt-8 mb-12 bg-light-green rounded-2xl shadow-lg ">
-          <div className="w-full h-full flex-col items-center justify-center bg-light-green hidden rounded-2xl lg:flex">
-            <img
-              src="review.webp"
+            <div className="w-full h-full flex-col items-center justify-center bg-light-green hidden rounded-2xl lg:flex">
+            <Image
+              src="/review.webp"
               alt="review"
+              width={600}
+              height={600}
               className="w-full h-full object-cover rounded-l-2xl"
-              draggable="false"
+              draggable={false}
             />
-          </div>
+            </div>
           <div className="w-full h-full flex flex-col items-center justify-center p-8 rounded-r-2xl bg-[#FFFFFF]">
             <h2 className="font-semibold text-3xl md:text-4xl border-b-2 pb-1 border-green">
               Leave us a Review

@@ -44,7 +44,7 @@ export const AnimatedTestimonials = ({
       const interval = setInterval(handleNext, 5000);
       return () => clearInterval(interval);
     }
-  }, [autoplay]);
+  }, [autoplay, handleNext]);
 
   // Generate random rotations only on the client after mount to avoid hydration mismatch
   const [rotations, setRotations] = useState<number[]>([]);

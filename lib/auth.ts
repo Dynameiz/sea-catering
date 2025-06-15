@@ -2,6 +2,7 @@ import Credentials from "next-auth/providers/credentials";
 import type { NextAuthConfig } from "next-auth";
 import { prisma } from "./prisma";
 import { compare } from "bcrypt";
+import NextAuth from "next-auth";
 
 const authConfig = {
   providers: [
@@ -29,6 +30,7 @@ const authConfig = {
         return {
           id: user.id.toString(),
           username: user.username,
+          role: user.role,
         };
       },
     }),
@@ -42,4 +44,4 @@ const authConfig = {
   secret: process.env.AUTH_SECRET,
 } satisfies NextAuthConfig;
 
-export default authConfig;
+export const { handlers, signIn, signOut, auth } = NextAuth(authConfig);

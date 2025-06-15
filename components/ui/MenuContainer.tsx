@@ -7,8 +7,8 @@ export default function MenuContainer({children}: {children: React.ReactNode}) {
         style={{ userSelect: "none" }}
         onMouseDown={(e) => {
         const container = e.currentTarget;
-        let startX = e.pageX - container.offsetLeft;
-        let scrollLeft = container.scrollLeft;
+        const startX = e.pageX - container.offsetLeft;
+        const scrollLeft = container.scrollLeft;
 
         function onMouseMove(ev: MouseEvent) {
         const x = ev.pageX - container.offsetLeft;
