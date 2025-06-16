@@ -1,5 +1,5 @@
 import Credentials from "next-auth/providers/credentials";
-import type { NextAuthConfig } from "next-auth";
+import type { NextAuthConfig, User } from "next-auth";
 import { prisma } from "./prisma";
 import { compare } from "bcrypt";
 import NextAuth from "next-auth";
@@ -31,7 +31,7 @@ const authConfig = {
           id: user.id.toString(),
           username: user.username,
           role: user.role,
-        };
+        } as User;
       },
     }),
   ],
@@ -41,6 +41,30 @@ const authConfig = {
   pages: {
     signIn: "/login",
   },
+  callbacks: {
+  async jwt({ token, user }) {
+    if (user) {
+      token.id = user.id;
+      token.username = user.username;
+      token.fullName = user.fullName;
+      token.phoneNumber = user.phoneNumber;
+      token.role = user.role;
+      token.createdAt = user.createdAt;
+    }
+    return token;
+  },
+  async session({ session, token }) {
+    if (token && session.user) {
+      session.user.id = token.id;
+      session.user.username = token.username;
+      session.user.fullName = token.fullName;
+      session.user.phoneNumber = token.phoneNumber;
+      session.user.role = token.role;
+      session.user.createdAt = token.createdAt;
+    }
+    return session;
+  },
+},
   secret: process.env.AUTH_SECRET,
 } satisfies NextAuthConfig;
 

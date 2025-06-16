@@ -164,7 +164,7 @@ export default function Home() {
       className={`${dmSans.className} relative flex-col items-center justify-center w-full min-h-screen`}
     >
       <section className="flex flex-col items-center justify-center w-full bg-light-beige">
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-center w-full h-full mt-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center w-full h-full mt-16 overflow-hidden">
           <motion.div
             initial={{ x: -1000 }}
             animate={{ x: 0 }}
