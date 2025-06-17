@@ -547,7 +547,10 @@ export default function Home() {
                 onClick={(e) => {
                   e.preventDefault();
                   if (!authenticated) {
-                    alert("Please log in to submit a review.");
+                    toast.error("Please log in to submit a review.", {
+                      position: "top-center",
+                      duration: 3000,
+                    });
                   }
                   else if (name !== "" && review !== "" && starReview > 0) {
                     const result = TestimonialSchema.safeParse({
@@ -558,10 +561,16 @@ export default function Home() {
                     if (result.success) {
                       onSubmit(result.data);
                     } else {
-                      toast.error("An error occurred while submitting your review.");
+                      toast.error("An error occurred while submitting your review.", {
+                        position: "top-center",
+                        duration: 3000,
+                      });
                     }
                   } else {
-                    toast.error("Please fill in all fields and select a rating.");
+                    toast.error("Please fill in all fields and select a rating.", {
+                      position: "top-center",
+                      duration: 3000,
+                    });
                   }
                 }}
                 className="px-6 py-3 rounded-lg bg-green text-light-beige shadow-md text-lg sm:text-xl lg:text-2xl font-semibold cursor-pointer"
