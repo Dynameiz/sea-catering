@@ -4,8 +4,12 @@ import Logo from '../assets/Logo';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { DynaPuff, DM_Sans } from 'next/font/google';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Hamburger from '../assets/Hamburger';
+import { signOut, useSession } from 'next-auth/react';
+import { Avatar, AvatarImage } from './avatar';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from './dropdown-menu';
+import { LogOutIcon, LucideUserRound } from 'lucide-react';
 
 const dynaPuff = DynaPuff({
   weight: ['400', '700'],
@@ -45,6 +49,8 @@ const pages = [
 ]
 
 export default function Navbar() {
+
+  const { data: session, status } = useSession(); 
 
   const router = useRouter();
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
@@ -89,15 +95,45 @@ export default function Navbar() {
               }
             </div>
           </div>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 1 }}
-            onClick={() => handleNavigation('/login')}
-            className=' px-4 py-2 text-beige hover:bg-beige hover:text-dark-green border-2 border-beige cursor-pointer rounded-lg'
-          >
-            Log in
-          </motion.button>
-
+          {
+            status === 'authenticated' ? (
+              <DropdownMenu modal={false}>
+                <DropdownMenuTrigger asChild>
+                  <div>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 1 }}
+                      // onClick={() => handleNavigation('/dashboard')}
+                      className='p-2 cursor-pointer'
+                    >
+                      <Avatar className='w-10 h-10 rounded-full'>
+                        <AvatarImage src={'/default-avatar.png'} alt={session.user?.name || 'User Avatar'} title={session.user?.name || 'Profile'} />
+                      </Avatar>
+                    </motion.button>
+                  </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end">
+                  <DropdownMenuItem className='flex items-center cursor-pointer text-lg' onClick={() => handleNavigation('/dashboard')}>
+                    <LucideUserRound />
+                    Profile
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem className='flex items-center cursor-pointer text-lg' onClick={() => signOut({ callbackUrl: '/' })}>
+                    <LogOutIcon/>
+                    Log out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 1 }}
+                onClick={() => handleNavigation('/login')}
+                className=' px-4 py-2 text-beige hover:bg-beige hover:text-dark-green border-2 border-beige cursor-pointer rounded-lg'
+              >
+                Log in
+              </motion.button>
+          )}
         </div>
         <AnimatePresence>
           {hamburgerOpen && (
