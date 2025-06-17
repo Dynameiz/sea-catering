@@ -3,6 +3,7 @@ import "@/app/globals.css";
 import Image from "next/image";
 import { Providers } from "../provider";
 import { DynaPuff, DM_Sans } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner";
 
 const dynaPuff = DynaPuff({
   weight: ["400", "700"],
@@ -43,6 +44,7 @@ export default function RootLayout({
             <Providers>
               {children}
             </Providers>
+            <Toaster />
         </div>
       </body>
     </html>

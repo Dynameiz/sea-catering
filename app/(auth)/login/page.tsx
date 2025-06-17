@@ -4,6 +4,7 @@ import { signIn } from "next-auth/react";
 import { DM_Sans } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 import { z } from "zod/v4";
 
 const dmSans = DM_Sans({
@@ -36,7 +37,10 @@ export default function Login() {
     });
     
     if (response?.error) {
-      alert(response.error);
+      toast.error("Invalid username or password", {
+        position: "top-center",
+        duration: 3000,
+      });
     } else {
       handleNavigation("/");
     }
@@ -57,7 +61,10 @@ export default function Login() {
               if (result.success) {
                 onSubmit(result.data);
               } else {
-                // alert(result.error.errors.map((e) => e.message).join(", "));
+                toast.error("Please fill in all fields correctly.", {
+                  position: "top-center",
+                  duration: 3000,
+                });
               }
             }}
             className={`${dmSans.variable} flex flex-col items-center justify-center`}
@@ -77,11 +84,11 @@ export default function Login() {
             >
               Log in
             </button>
-            <div className="flex flex-row items-center mt-2 gap-1">
+          </form>
+            <div className="flex flex-row items-center mt-2 gap-1 w-full justify-center">
               <p className="text-sm">{signUpText}</p>
               <button className="text-sm text-green cursor-pointer" onClick={() => handleNavigation('/register')}>Sign Up</button>
             </div>
-          </form>
         </div>
       </div>
     </div>

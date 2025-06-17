@@ -5,6 +5,7 @@ import { DM_Sans } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { z } from "zod/v4";
+import { toast } from "sonner";
 import axios from "axios";
 
 const dmSans = DM_Sans({
@@ -35,7 +36,10 @@ export default function Register() {
 
   const onSubmit = async (data: z.infer<typeof UserSchema>) => {
     if (data.password !== data.confirmPassword) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match", {
+        position: "top-center",
+        duration: 3000,
+      });
       return;
     }
 
@@ -57,16 +61,28 @@ export default function Register() {
       });
 
       if(response.status === 201) {
-        alert("Registration successful! You can now log in.");
+        toast.success("Registration successful! You can now log in.", {
+          position: "top-center",
+          duration: 3000,
+        });
         handleNavigation("/login");
       } else if (response.status === 400) {
-        alert("Username or phone number already exists.");
+        toast.error("Username or phone number already exists.", {
+          position: "top-center",
+          duration: 3000,
+        });
       } else {
-        alert("An unexpected error occurred. Please try again later.");
+        toast.error("An unexpected error occurred. Please try again later.", {
+          position: "top-center",
+          duration: 3000,
+        });
       }
     } catch (error) {
       console.error("Registration error:", error);
-      alert("An unexpected error occurred. Please try again later.");
+      toast.error("An unexpected error occurred. Please try again later.", {
+        position: "top-center",
+        duration: 3000,
+      });
     }
   }
 
@@ -85,7 +101,10 @@ export default function Register() {
               if (result.success) {
                 onSubmit(result.data);
               } else {
-                alert(result.error.message);
+                toast.error("Please fill in all fields correctly.", {
+                  position: "top-center",
+                  duration: 3000,
+                });
               }
             }}
             className={`${dmSans.variable} flex flex-col items-center justify-center`}
@@ -123,11 +142,11 @@ export default function Register() {
             >
               Register
             </button>
-            <div className="flex flex-row items-center mt-2 gap-1">
-              <p className="text-sm">Already have an account?</p>
-              <button className="text-sm text-green cursor-pointer" onClick={() => handleNavigation('/login')}>Log in</button>
-            </div>
           </form>
+          <div className="flex flex-row items-center justify-center mt-2 gap-1">
+            <p className="text-sm">Already have an account?</p>
+            <button className="text-sm text-green cursor-pointer" onClick={() => handleNavigation('/login')}>Log in</button>
+          </div>
         </div>
       </div>
     </div>
