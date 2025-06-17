@@ -4,7 +4,7 @@ import Logo from '../assets/Logo';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { DynaPuff, DM_Sans } from 'next/font/google';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Hamburger from '../assets/Hamburger';
 import { signOut, useSession } from 'next-auth/react';
 import { Avatar, AvatarImage } from './avatar';
