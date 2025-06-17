@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import "@/app/globals.css";
 import Navbar from "@/components/ui/Navbar";
 import { Providers } from "../provider";
+import { Toaster } from "@/components/ui/sonner";
 
 
 export const metadata: Metadata = {
@@ -19,9 +20,10 @@ export default function RootLayout({
       <body
         className={`antialiased`}
       >
-        <Navbar />
         <Providers>
+          <Navbar />
           {children}
+          <Toaster />
         </Providers>
       </body>
     </html>

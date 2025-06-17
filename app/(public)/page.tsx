@@ -12,10 +12,14 @@ import {
   IconBrandX,
   IconBrandYoutube,
 } from "@tabler/icons-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Logo from "@/components/assets/Logo";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { toast } from "sonner";
+import { z } from "zod/v4";
+import axios from "axios";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -144,9 +148,19 @@ const socialMediaLinks = [
   },
 ];
 
+const TestimonialSchema = z.object({
+  customerName: z.string().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
+  message: z.string().min(1, "Review is required"),
+  rating: z.number().min(1, "Rating must be at least 1").max(5, "Rating must be at most 5"),
+});
+
 export default function Home() {
+  const { data: session, status } = useSession();
   const router = useRouter();
 
+  const [authenticated, setAuthenticated] = useState(false);
+  const [name, setName] = useState("");
+  const [review, setReview] = useState("");
   const [highlight, setHighlight] = useState(0);
   const [starReview, setStarReview] = useState(0);
 
@@ -157,6 +171,55 @@ export default function Home() {
   const resetRating = () => {
     setHighlight(0);
     setStarReview(0);
+  };
+  
+  useEffect(() => {
+    if (status === "authenticated") {
+      setAuthenticated(true);
+    }
+  }, [status, router]);
+
+  const onSubmit = async(data: z.infer<typeof TestimonialSchema>) => {
+    try {
+      const parsedData = TestimonialSchema.parse({
+        customerName: data.customerName,
+        message: data.message,
+        rating: data.rating,
+      });
+
+      const response = await axios.post("/api/testimonial", {
+        customerName: parsedData.customerName,
+        message: parsedData.message,
+        rating: parsedData.rating,
+      });
+      if (response.status === 201) {
+        toast.success("Review submitted successfully!", {
+          position: "top-center",
+          duration: 3000,
+        });
+        setName("");
+        setReview("");
+        resetRating();
+      }
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        toast.error(error.message, {
+          position: "top-center",
+          duration: 3000,
+        });
+      } else if (axios.isAxiosError(error)) {
+        toast.error("An error occurred while submitting your review.", {
+          position: "top-center",
+          duration: 3000,
+        });
+      } else {
+        console.error("Unexpected error:", error);
+        toast.error("An unexpected error occurred.", {
+          position: "top-center",
+          duration: 3000,
+        });
+      }
+    }
   };
 
   return (
@@ -374,7 +437,8 @@ export default function Home() {
                   name="name"
                   className="mt-1 px-3 py-2 border border-green rounded-lg focus:outline-none focus:ring-2 focus:ring-green"
                   placeholder="Your Name"
-                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </label>
               <label className="flex flex-col text-left font-medium text-lg">
@@ -384,7 +448,9 @@ export default function Home() {
                   className="mt-1 px-3 py-2 border border-green rounded-lg focus:outline-none focus:ring-2 focus:ring-green resize-none"
                   placeholder="Share your experience..."
                   rows={4}
-                  required
+                  value={review}
+                  onChange={(e) => setReview(e.target.value)}
+                  
                 />
               </label>
               <div className="flex items-center justify-around gap-4">
@@ -394,11 +460,12 @@ export default function Home() {
                   className="cursor-pointer"
                   onClick={() => setStarReview(1)}
                   onMouseEnter={() => setHighlight(1)}
-                  onMouseLeave={() => resetRating}
+                  onMouseLeave={() => setHighlight(0)}
+                  type="button"
                 >
                   <Logo
-                    width={64}
-                    height={64}
+                    width={48}
+                    height={48}
                     color={`${
                       highlight > 0 || starReview > 0 ? "#105E54" : "#333333"
                     }`}
@@ -410,11 +477,12 @@ export default function Home() {
                   className="cursor-pointer"
                   onClick={() => setStarReview(2)}
                   onMouseEnter={() => setHighlight(2)}
-                  onMouseLeave={() => resetRating}
+                  onMouseLeave={() => setHighlight(0)}
+                  type="button"
                 >
                   <Logo
-                    width={64}
-                    height={64}
+                    width={48}
+                    height={48}
                     color={`${
                       highlight > 1 || starReview > 1 ? "#105E54" : "#333333"
                     }`}
@@ -426,11 +494,12 @@ export default function Home() {
                   className="cursor-pointer"
                   onClick={() => setStarReview(3)}
                   onMouseEnter={() => setHighlight(3)}
-                  onMouseLeave={() => resetRating}
+                  onMouseLeave={() => setHighlight(0)}
+                  type="button"
                 >
                   <Logo
-                    width={64}
-                    height={64}
+                    width={48}
+                    height={48}
                     color={`${
                       highlight > 2 || starReview > 2 ? "#105E54" : "#333333"
                     }`}
@@ -442,11 +511,12 @@ export default function Home() {
                   className="cursor-pointer"
                   onClick={() => setStarReview(4)}
                   onMouseEnter={() => setHighlight(4)}
-                  onMouseLeave={() => resetRating}
+                  onMouseLeave={() => setHighlight(0)}
+                  type="button"
                 >
                   <Logo
-                    width={64}
-                    height={64}
+                    width={48}
+                    height={48}
                     color={`${
                       highlight > 3 || starReview > 3 ? "#105E54" : "#333333"
                     }`}
@@ -458,11 +528,12 @@ export default function Home() {
                   className="cursor-pointer"
                   onClick={() => setStarReview(5)}
                   onMouseEnter={() => setHighlight(5)}
-                  onMouseLeave={() => resetRating}
+                  onMouseLeave={() => setHighlight(0)}
+                  type="button"
                 >
                   <Logo
-                    width={64}
-                    height={64}
+                    width={48}
+                    height={48}
                     color={`${
                       highlight > 4 || starReview > 4 ? "#105E54" : "#333333"
                     }`}
@@ -473,7 +544,26 @@ export default function Home() {
                 type="submit"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => {}}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (!authenticated) {
+                    alert("Please log in to submit a review.");
+                  }
+                  else if (name !== "" && review !== "" && starReview > 0) {
+                    const result = TestimonialSchema.safeParse({
+                      customerName: name,
+                      message: review,
+                      rating: starReview,
+                    });
+                    if (result.success) {
+                      onSubmit(result.data);
+                    } else {
+                      toast.error("An error occurred while submitting your review.");
+                    }
+                  } else {
+                    toast.error("Please fill in all fields and select a rating.");
+                  }
+                }}
                 className="px-6 py-3 rounded-lg bg-green text-light-beige shadow-md text-lg sm:text-xl lg:text-2xl font-semibold cursor-pointer"
               >
                 Submit Review
