@@ -19,7 +19,7 @@ const mealPlans = [
     short_desc: "Clean, low-calorie meals to help you stay fit and energized.",
     description: "A lighter, low-calorie meal plan designed to help you eat clean and feel energized. Perfect for those looking to manage weight or simply maintain a healthy lifestyle without sacrificing flavor.",
     logo: "/diet-plan.png",
-    images: ["/salad.jpg", "/keto-plate.jpg", "/diet-food.jpg", "/diet-food2.webp", "/diet-food3.jpg"],
+    images: ["/salad.jpg", "/diet-food.jpg", "/diet-food2.webp", "/diet-food3.jpg"],
     price: 30000,
   },
   {
@@ -27,7 +27,7 @@ const mealPlans = [
     short_desc: "High-protein meals built to fuel strength and recovery.",
     description: "Packed with lean meats, eggs, legumes, and healthy grains, this plan is built to fuel your workouts, support muscle growth, and keep you full longer. Ideal for active lifestyles and fitness goals.",
     logo: "/protein-plan.png",
-    images: ["/cooked-chicken.webp"],
+    images: ["/cooked-chicken.webp", "/protein-food.jpg", "/protein-food2.webp", "/protein-food3.webp"],
     price: 40000,
   },
   {
@@ -35,7 +35,7 @@ const mealPlans = [
     short_desc: "Premium, chef-crafted meals for a complete gourmet experience.",
     description: "Our most complete and indulgent option — featuring a balanced variety of premium ingredients, chef-curated menus, and delicious extras. For those who want the full SEA Catering experience with zero compromises.",
     logo: "/royal-plan.png",
-    images: ["/steak.jpg"],
+    images: ["/steak.jpg", "/royal-food.jpeg", "/royal-food2.jpg", "/royal-food3.jpg"],
     price: 60000,
   },
 ];
@@ -51,11 +51,10 @@ export default function Plans() {
           </p>
           <div className="container mx-auto mt-8 grid grid-cols-1 lg:grid-cols-3 items-center justify-center justify-items-center gap-6">
             {mealPlans.map((plan, index) => (
-                <Modal >
+                <Modal key={index}>
                 <ModalTrigger >
                   <div>
                   <PlanCard
-                    key={index}
                     name={plan.name}
                     description={plan.short_desc}
                     image={plan.logo}
@@ -66,7 +65,6 @@ export default function Plans() {
                 <ModalBody >
                   <ModalContent>
                     <MealPlanContent
-                      key={index}
                       name={plan.name}
                       description={plan.description}
                       image={plan.images}

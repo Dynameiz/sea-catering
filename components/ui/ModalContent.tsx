@@ -30,7 +30,7 @@ export default function MealPlanContent(plan: mealPlan) {
                 rotate: 0,
                 zIndex: 100,
                 }}
-                className="rounded-xl -mr-4 mt-4 p-1 bg-white border border-neutral-100 shrink-0 overflow-hidden"
+                className="rounded-xl -mr-4 mt-4 p-1 bg-white border border-neutral-100 shrink-0 overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
             >
                 <Image
                 src={image}
@@ -45,6 +45,7 @@ export default function MealPlanContent(plan: mealPlan) {
         </div>
         <div className="py-10 flex flex-wrap gap-x-4 gap-y-6 items-start justify-start mx-auto">
             <p className="text-lg">{plan.description}</p>
+            <p className="text-3xl font-semibold">{`Rp ${plan.price.toLocaleString('id-ID')}`}</p>
         </div>
     </div>
   )

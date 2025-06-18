@@ -11,6 +11,9 @@ const dmSans = DM_Sans({
   variable: "--font-dm-sans",
 });
 
+const aboutUs = "Welcome to SEA Catering - your trusted partner for healthy, customizable meals delivered right to your doorstep, anywhere in Indonesia. Whether you're looking to stay fit, save time, or just enjoy nutritious food without the hassle, we're here to make it easier for you to eat well and feel great every day."
+const mission = "To make healthy eating easy, affordable, and enjoyable for everyone in Indonesia. We believe that food is more than just fuel — it's comfort, culture, and care. That’s why every meal we create is thoughtfully prepared with your goals, preferences, and well-being in mind."
+
 export default function About() {
   return (
     <div className={`${dmSans.className} relative flex-col items-center justify-center w-full min-h-screen`}>
@@ -22,9 +25,7 @@ export default function About() {
           <div className="container flex flex-col w-full justify-center">
             <h1 className="text-4xl lg:text-5xl font-bold">About Us</h1>
             <p className="mt-4 text-lg text-justify leading-loose">
-              Welcome to SEA Catering - your trusted partner for healthy, customizable meals delivered right to your doorstep,
-              anywhere in Indonesia. Whether you're looking to stay fit, save time, or just enjoy nutritious food without the hassle,
-              we're here to make it easier for you to eat well and feel great every day.
+              {aboutUs}
             </p>
           </div>
         </div>
@@ -41,8 +42,7 @@ export default function About() {
         <div className="container mx-auto flex flex-col items-center justify-center text-center relative z-10">
           <h1 className="text-4xl lg:text-5xl font-bold text-beige border-b-2 pb-3">Our Mission</h1>
           <p className="mt-4 max-w-3xl text-light-beige text-lg text-center leading-loose">
-            To make healthy eating easy, affordable, and enjoyable for everyone in Indonesia.
-            We believe that food is more than just fuel — it's comfort, culture, and care. That’s why every meal we create is thoughtfully prepared with your goals, preferences, and well-being in mind.
+            {mission}
           </p>
         </div>
       </section>
