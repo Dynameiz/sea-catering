@@ -2,7 +2,10 @@
 
 import Footer from "@/components/ui/Footer";
 import GetStarted from "@/components/ui/GetStarted";
+import PlanCard from "@/components/ui/Cards";
 import { DM_Sans } from "next/font/google";
+import { Modal, ModalBody, ModalContent, ModalTrigger } from "@/components/ui/animated-modal";
+import MealPlanContent from "@/components/ui/ModalContent";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -10,14 +13,77 @@ const dmSans = DM_Sans({
   variable: "--font-dm-sans",
 });
 
+const mealPlans = [
+  {
+    name: "Diet Plan",
+    short_desc: "Clean, low-calorie meals to help you stay fit and energized.",
+    description: "A lighter, low-calorie meal plan designed to help you eat clean and feel energized. Perfect for those looking to manage weight or simply maintain a healthy lifestyle without sacrificing flavor.",
+    logo: "/diet-plan.png",
+    images: ["/salad.jpg", "/keto-plate.jpg", "/diet-food.jpg", "/diet-food2.webp", "/diet-food3.jpg"],
+    price: 30000,
+  },
+  {
+    name: "Protein Plan",
+    short_desc: "High-protein meals built to fuel strength and recovery.",
+    description: "Packed with lean meats, eggs, legumes, and healthy grains, this plan is built to fuel your workouts, support muscle growth, and keep you full longer. Ideal for active lifestyles and fitness goals.",
+    logo: "/protein-plan.png",
+    images: ["/cooked-chicken.webp"],
+    price: 40000,
+  },
+  {
+    name: "Royal Plan",
+    short_desc: "Premium, chef-crafted meals for a complete gourmet experience.",
+    description: "Our most complete and indulgent option — featuring a balanced variety of premium ingredients, chef-curated menus, and delicious extras. For those who want the full SEA Catering experience with zero compromises.",
+    logo: "/royal-plan.png",
+    images: ["/steak.jpg"],
+    price: 60000,
+  },
+];
+
 export default function Plans() {
   return (
     <div className={`${dmSans.className} relative flex-col items-center justify-center w-full min-h-screen`}>
-      <section className="flex flex-col items-center justify-center w-full px-4 py-8 mx-auto bg-light-beige-2">
+      <section className="flex flex-col items-center justify-center w-full px-4 py-16 mx-auto bg-light-beige-2">
+        <div className="container mx-auto flex flex-col items-center justify-center mt-16">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 p-3 pt-0 border-b-2 border-green">Meal Plans</h1>
+          <p className="text-lg max-w-2xl md:max-w-full text-center">
+            Choose a plan that suits your needs. We offer flexible options to help you get the most out of our services.
+          </p>
+          <div className="container mx-auto mt-8 grid grid-cols-1 lg:grid-cols-3 items-center justify-center justify-items-center gap-6">
+            {mealPlans.map((plan, index) => (
+                <Modal >
+                <ModalTrigger >
+                  <div>
+                  <PlanCard
+                    key={index}
+                    name={plan.name}
+                    description={plan.short_desc}
+                    image={plan.logo}
+                    price={plan.price}
+                  />
+                  </div>
+                </ModalTrigger>
+                <ModalBody >
+                  <ModalContent>
+                    <MealPlanContent
+                      key={index}
+                      name={plan.name}
+                      description={plan.description}
+                      image={plan.images}
+                      price={plan.price}
+                    />
+                  </ModalContent>
+                </ModalBody>
+                </Modal>
+            ))}
+          </div>
+        </div>
       </section>
-      <section className="flex flex-col items-center justify-center w-full pt-24 lg:pt-16 bg-green">
-        
-      </section>
+      {/* <section className="flex flex-col items-center justify-center w-full py-24 lg:py-16 bg-light-beige">
+        <div className="container mx-auto flex flex-col items-center justify-center">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 p-3 pt-0 border-b-2 border-green">Menu</h1>
+        </div>
+      </section> */}
       <GetStarted />
       <Footer />
     </div>
