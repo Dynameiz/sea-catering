@@ -129,7 +129,7 @@ export default function Navbar() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 1 }}
                 onClick={() => handleNavigation('/login')}
-                className=' px-4 py-2 text-beige hover:bg-beige hover:text-dark-green border-2 border-beige cursor-pointer rounded-lg'
+                className=' px-4 py-2 text-beige hover:bg-beige hover:text-dark-green border-2 border-beige cursor-pointer rounded-lg font-semibold'
               >
                 Log in
               </motion.button>

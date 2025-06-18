@@ -5,13 +5,6 @@ import { motion } from "framer-motion";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 import { useRouter } from "next/navigation";
 import MenuContainer from "@/components/ui/MenuContainer";
-import {
-  IconBrandGithub,
-  IconBrandInstagram,
-  IconBrandTiktok,
-  IconBrandX,
-  IconBrandYoutube,
-} from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import Logo from "@/components/assets/Logo";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -20,6 +13,8 @@ import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 import { z } from "zod/v4";
 import axios from "axios";
+import Footer from "@/components/ui/Footer";
+import GetStarted from "@/components/ui/GetStarted";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -115,38 +110,6 @@ const thisWeekMenu = [
   },
 ];
 
-const socialMediaLinks = [
-  {
-    name: "Instagram",
-    icon: <IconBrandInstagram color="#333333" size={28} />,
-    link: "https://www.instagram.com/not_hanz/",
-    tooltip: "@not_hanz",
-  },
-  {
-    name: "X",
-    icon: <IconBrandX color="#333333" size={28} />,
-    link: "https://x.com/COMPFEST",
-    tooltip: "@COMPFEST",
-  },
-  {
-    name: "TikTok",
-    icon: <IconBrandTiktok color="#333333" size={28} />,
-    link: "https://www.tiktok.com/@compfest",
-    tooltip: "@compfest",
-  },
-  {
-    name: "YouTube",
-    icon: <IconBrandYoutube color="#333333" size={28} />,
-    link: "https://www.youtube.com/@COMPFESTUI",
-    tooltip: "@COMPFESTUI",
-  },
-  {
-    name: "GitHub",
-    icon: <IconBrandGithub color="#333333" size={28} />,
-    link: "https://github.com/Dynameiz/sea-catering",
-    tooltip: "Dynameiz",
-  },
-];
 
 const TestimonialSchema = z.object({
   customerName: z.string().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
@@ -244,7 +207,7 @@ export default function Home() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleNavigation("/plans")}
-              className="w-fit px-6 py-3 mt-4 rounded-lg bg-green text-light-beige text-lg sm:text-xl lg:text-2xl font-semibold shadow-md cursor-pointer"
+              className="w-fit px-8 py-3 mt-4 rounded-lg bg-green text-light-beige text-lg sm:text-xl font-semibold shadow-md cursor-pointer"
             >
               Explore Plans
             </motion.button>
@@ -302,7 +265,7 @@ export default function Home() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => handleNavigation("/plans")}
-          className="mt-8 px-6 py-3 rounded-lg bg-green text-light-beige shadow-md text-lg sm:text-xl lg:text-2xl font-semibold cursor-pointer"
+          className="mt-8 px-6 py-3 rounded-lg bg-green text-light-beige shadow-md text-lg sm:text-xl font-semibold cursor-pointer"
         >
           Get Started
         </motion.button>
@@ -351,7 +314,7 @@ export default function Home() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => handleNavigation("/menu")}
-            className="px-6 py-3 rounded-lg bg-green text-light-beige shadow-md text-lg sm:text-xl lg:text-2xl font-semibold cursor-pointer"
+            className="px-6 py-3 rounded-lg bg-green text-light-beige shadow-md text-lg sm:text-xl font-semibold cursor-pointer"
           >
             View Full Menu
           </motion.button>
@@ -573,7 +536,7 @@ export default function Home() {
                     });
                   }
                 }}
-                className="px-6 py-3 rounded-lg bg-green text-light-beige shadow-md text-lg sm:text-xl lg:text-2xl font-semibold cursor-pointer"
+                className="px-6 py-3 rounded-lg bg-green text-light-beige shadow-md text-lg sm:text-xl font-semibold cursor-pointer"
               >
                 Submit Review
               </motion.button>
@@ -581,28 +544,8 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <footer className="flex flex-col items-center justify-center w-full h-48 bg-dark-grey text-white">
-        <div className="flex flex-row items-center justify-center gap-6 mb-4">
-          {socialMediaLinks.map((link, index) => (
-              <motion.a
-                href={link.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                key={index}
-                className="text-2xl bg-white p-2 shadow-md rounded-full"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                title={link.tooltip}
-              >
-                {link.icon}
-              </motion.a>
-          ))}
-        </div>
-        <h3 className="text-2xl font-semibold mb-4">Brian - 08123456789</h3>
-        <p className="absolute bottom-0 w-full mb-4 text-lg text-center">
-          © 2025 SEA Catering. All rights reserved.
-        </p>
-      </footer>
+      <GetStarted />
+      <Footer />
     </div>
   );
 }
