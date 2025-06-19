@@ -7,6 +7,8 @@ import { useState } from "react";
 import { z } from "zod/v4";
 import { toast } from "sonner";
 import axios from "axios";
+import { AnimatePresence } from "framer-motion";
+import Spinner from "@/components/ui/Spinner";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -173,6 +175,11 @@ export default function Register() {
 
   return (
     <div className="flex items-center justify-center w-full h-screen bg-light-beige">
+      {loading && (
+        <AnimatePresence>
+          <Spinner />
+        </AnimatePresence>
+      )}
       <div className="container mx-auto p-4">
         <div className="max-w-lg mx-auto bg-white rounded-xl shadow-lg p-8">
           <form
