@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import Logo from '../assets/Logo'
 import { DM_Sans } from 'next/font/google'
@@ -18,8 +18,7 @@ const dmSans = DM_Sans({
 });
 
 export default function Spinner() {
-
-    const [loadingText, setLoadingText] = React.useState('');
+    const [loadingText, setLoadingText] = useState(loadingTexts[2]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -47,9 +46,14 @@ export default function Spinner() {
         >
             <Logo width={180} height={180} />
         </motion.div>
-        <h1 className={`text-2xl font-semibold text-white mt-4 ${dmSans.variable}`}>
+        <motion.h1
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className={`text-2xl font-semibold text-white mt-4 ${dmSans.variable}`}
+            exit={{ opacity: 0, scale: 0.5 }}
+        >
             {loadingText}
-        </h1>
+        </motion.h1>
     </div>
   )
 }
