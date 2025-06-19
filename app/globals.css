@@ -2,6 +2,7 @@
 
 :root {
   --dark-green: #13312C;
+  --dark-green-2: #0d5047;
   --green: #105E54;
   --light-green: #A9BFA9;
   --beige: #FFF0C5;
@@ -45,6 +46,7 @@
 
 @theme inline {
   --color-dark-green: var(--dark-green);
+  --color-dark-green-2: var(--dark-green-2);
   --color-green: var(--green);
   --color-light-green: var(--light-green);
   --color-beige: var(--beige);

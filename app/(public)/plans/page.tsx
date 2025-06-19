@@ -3,9 +3,13 @@
 import Footer from "@/components/ui/Footer";
 import GetStarted from "@/components/ui/GetStarted";
 import PlanCard from "@/components/ui/Cards";
+import { motion } from "framer-motion";
 import { DM_Sans } from "next/font/google";
-import { Modal, ModalBody, ModalContent, ModalTrigger } from "@/components/ui/animated-modal";
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalTrigger } from "@/components/ui/animated-modal";
 import MealPlanContent from "@/components/ui/ModalContent";
+import { useSession } from "next-auth/react";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -41,6 +45,31 @@ const mealPlans = [
 ];
 
 export default function Plans() {
+
+  const { status } = useSession();
+  const router = useRouter();
+
+  const handleClick = (planName: string) => {
+    if (status !== "authenticated") {
+      toast.error("Please log in to book a meal plan.",{
+        duration: 5000,
+        action: {
+          label: "Log In",
+          onClick: () => router.push("/login"),
+        },
+      });
+      return;
+    }
+    toast.success(`You have selected the ${planName}. Please proceed to checkout.`, {
+      duration: 5000,
+      action: {
+        label: "Go to Checkout",
+        onClick: () => router.push("/"),
+      },
+    }
+    );
+  };
+
   return (
     <div className={`${dmSans.className} relative flex-col items-center justify-center w-full min-h-screen`}>
       <section className="flex flex-col items-center justify-center w-full px-4 py-16 mx-auto bg-light-beige-2">
@@ -71,6 +100,16 @@ export default function Plans() {
                       price={plan.price}
                     />
                   </ModalContent>
+                  <ModalFooter className="gap-4">
+                    <motion.button
+                      className="bg-green hover:bg-dark-green-2 transition-colors duration-200 text-beige text-md px-3 py-2 rounded-md cursor-pointer"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => {handleClick(plan.name)}}
+                    >
+                      Choose Plan
+                    </motion.button>
+                  </ModalFooter>
                 </ModalBody>
                 </Modal>
             ))}

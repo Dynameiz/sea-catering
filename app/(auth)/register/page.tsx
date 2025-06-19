@@ -15,17 +15,36 @@ const dmSans = DM_Sans({
 });
 
 const UserSchema = z.object({
-  firstName: z.string().min(1, "First name is required").max(50, "First name must be less than 50 characters"),
-  lastName: z.string().min(1, "Last name is required").max(50, "Last name must be less than 50 characters"),
-  username: z.string().min(1, "Username is required").max(50, "Username must be less than 50 characters"),
-  phoneNumber: z.string().min(1, "Phone number is required").max(15, "Phone number must be less than 15 characters"),
-  password: z.string().min(1, "Password is required").min(8, "Password must have more than 8 characters").max(100, "Password must be less than 100 characters"),
-  confirmPassword: z.string().min(1, "Confirm password is required").max(100, "Confirm password must be less than 100 characters"),
+  firstName: z
+    .string()
+    .min(1, "First name is required")
+    .max(50, "First name must be less than 50 characters"),
+  lastName: z
+    .string()
+    .min(1, "Last name is required")
+    .max(50, "Last name must be less than 50 characters"),
+  username: z
+    .string()
+    .min(1, "Username is required")
+    .max(50, "Username must be less than 50 characters"),
+  phoneNumber: z
+    .string()
+    .min(10, "Phone number is required")
+    .max(15, "Phone number must be less than 15 characters"),
+  password: z
+    .string()
+    .min(1, "Password is required")
+    .min(8, "Password must have more than 8 characters")
+    .max(100, "Password must be less than 100 characters"),
+  confirmPassword: z
+    .string()
+    .min(1, "Confirm password is required")
+    .max(100, "Confirm password must be less than 100 characters"),
 });
 
 export default function Register() {
-
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -35,7 +54,67 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const onSubmit = async (data: z.infer<typeof UserSchema>) => {
+    if (data.firstName.length < 1 || data.firstName.length > 50) {
+      setLoading(false);
+      toast.error("First name must be between 1 and 50 characters", {
+        position: "top-center",
+        duration: 3000,
+      });
+      return;
+    }
+    if (data.lastName.length < 1 || data.lastName.length > 50) {
+      setLoading(false);
+      toast.error("Last name must be between 1 and 50 characters", {
+        position: "top-center",
+        duration: 3000,
+      });
+      return;
+    }
+    if (data.username.length < 1 || data.username.length > 50) {
+      setLoading(false);
+      toast.error("Username must be between 1 and 50 characters", {
+        position: "top-center",
+        duration: 3000,
+      });
+      return;
+    }
+    if (!/^[a-zA-Z0-9._]+$/.test(data.username)) {
+      setLoading(false);
+      toast.error(
+        "Username can only contain letters, numbers, dots (.) and underscores (_)",
+        {
+          position: "top-center",
+          duration: 3000,
+        }
+      );
+      return;
+    }
+    if (!data.phoneNumber.startsWith("08")) {
+      setLoading(false);
+      toast.error("Phone number must start with 08", {
+        position: "top-center",
+        duration: 3000,
+      });
+      return;
+    }
+    if (data.phoneNumber.length < 10 || data.phoneNumber.length > 15) {
+      setLoading(false);
+      toast.error("Phone number must be between 10 and 15 characters", {
+        position: "top-center",
+        duration: 3000,
+      });
+      return;
+    }
+    if (data.password.length < 8 || data.password.length > 100) {
+      setLoading(false);
+      toast.error("Password must be between 8 and 100 characters", {
+        position: "top-center",
+        duration: 3000,
+      });
+      return;
+    }
     if (data.password !== data.confirmPassword) {
+      setLoading(false);
       toast.error("Passwords do not match", {
         position: "top-center",
         duration: 3000,
@@ -47,7 +126,7 @@ export default function Register() {
       const parsedData = UserSchema.parse({
         firstName: data.firstName,
         lastName: data.lastName,
-        username: data.username,
+        username: data.username.toLowerCase(),
         phoneNumber: data.phoneNumber,
         password: data.password,
         confirmPassword: data.confirmPassword,
@@ -60,7 +139,7 @@ export default function Register() {
         password: parsedData.password,
       });
 
-      if(response.status === 201) {
+      if (response.status === 201) {
         toast.success("Registration successful! You can now log in.", {
           position: "top-center",
           duration: 3000,
@@ -83,8 +162,10 @@ export default function Register() {
         position: "top-center",
         duration: 3000,
       });
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   const handleNavigation = (path: string) => {
     router.push(path);
@@ -97,10 +178,19 @@ export default function Register() {
           <form
             onSubmit={(e) => {
               e.preventDefault(); // prevent default form refresh
-              const result = UserSchema.safeParse({ firstName, lastName, username, phoneNumber, password, confirmPassword });
+              setLoading(true);
+              const result = UserSchema.safeParse({
+                firstName,
+                lastName,
+                username,
+                phoneNumber,
+                password,
+                confirmPassword,
+              });
               if (result.success) {
                 onSubmit(result.data);
               } else {
+                setLoading(false);
                 toast.error("Please fill in all fields correctly.", {
                   position: "top-center",
                   duration: 3000,
@@ -113,28 +203,58 @@ export default function Register() {
             <div className="grid grid-cols-2 gap-4 w-full mb-4">
               <div className="flex flex-col items-start w-full">
                 <p className="text-sm mb-1 font-semibold">First Name</p>
-                <Input type="text" placeholder="John" value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
+                <Input
+                  type="text"
+                  placeholder="John"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
               </div>
               <div className="flex flex-col items-start w-full">
                 <p className="text-sm mb-1 font-semibold">Last Name</p>
-                <Input type="text" placeholder="Doe" value={lastName} onChange={(e) => setLastName(e.target.value)}/>
+                <Input
+                  type="text"
+                  placeholder="Doe"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
               </div>
             </div>
             <div className="flex flex-col items-start w-full mb-4">
               <p className="text-sm mb-1 font-semibold">Username</p>
-              <Input type="text" placeholder="COMPFEST" value={username} onChange={(e) => setUsername(e.target.value)}/>
+              <Input
+                type="text"
+                placeholder="COMPFEST"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
             </div>
             <div className="flex flex-col items-start w-full mb-4">
               <p className="text-sm mb-1 font-semibold">Phone Number</p>
-              <Input type="text" placeholder="087812345678" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+              <Input
+                type="text"
+                placeholder="087812345678"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+              />
             </div>
             <div className="flex flex-col items-start w-full mb-4">
               <p className="text-sm mb-1 font-semibold">Password</p>
-              <Input type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+              <Input
+                type="password"
+                placeholder="Enter Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
             <div className="flex flex-col items-start w-full mb-4">
               <p className="text-sm mb-1 font-semibold">Confirm Password</p>
-              <Input type="password" placeholder="Confirm Your Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+              <Input
+                type="password"
+                placeholder="Confirm Your Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
             </div>
             <button
               type="submit"
@@ -145,10 +265,15 @@ export default function Register() {
           </form>
           <div className="flex flex-row items-center justify-center mt-2 gap-1">
             <p className="text-sm">Already have an account?</p>
-            <button className="text-sm text-green cursor-pointer" onClick={() => handleNavigation('/login')}>Log in</button>
+            <button
+              className="text-sm text-green cursor-pointer"
+              onClick={() => handleNavigation("/login")}
+            >
+              Log in
+            </button>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

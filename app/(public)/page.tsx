@@ -1,7 +1,7 @@
 "use client";
 
 import { DM_Sans } from "next/font/google";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 import { useRouter } from "next/navigation";
 import MenuContainer from "@/components/ui/MenuContainer";
@@ -15,6 +15,7 @@ import { z } from "zod/v4";
 import axios from "axios";
 import Footer from "@/components/ui/Footer";
 import GetStarted from "@/components/ui/GetStarted";
+import Spinner from "@/components/ui/Spinner";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -120,6 +121,7 @@ const TestimonialSchema = z.object({
 export default function Home() {
   const { status } = useSession();
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const [authenticated, setAuthenticated] = useState(false);
   const [name, setName] = useState("");
@@ -182,6 +184,8 @@ export default function Home() {
           duration: 3000,
         });
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -189,6 +193,11 @@ export default function Home() {
     <div
       className={`${dmSans.className} relative flex-col items-center justify-center w-full min-h-screen`}
     >
+      {loading && (
+        <AnimatePresence>
+          <Spinner />
+        </AnimatePresence>
+      )}
       <section className="flex flex-col items-center justify-center w-full bg-light-beige">
         <div className="grid grid-cols-1 lg:grid-cols-2 items-center w-full h-full mt-16 overflow-hidden">
           <motion.div
@@ -516,6 +525,7 @@ export default function Home() {
                     });
                   }
                   else if (name !== "" && review !== "" && starReview > 0) {
+                    setLoading(true);
                     const result = TestimonialSchema.safeParse({
                       customerName: name,
                       message: review,
@@ -524,6 +534,7 @@ export default function Home() {
                     if (result.success) {
                       onSubmit(result.data);
                     } else {
+                      setLoading(false);
                       toast.error("An error occurred while submitting your review.", {
                         position: "top-center",
                         duration: 3000,

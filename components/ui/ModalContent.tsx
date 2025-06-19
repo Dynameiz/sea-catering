@@ -12,7 +12,7 @@ type mealPlan = {
 export default function MealPlanContent(plan: mealPlan) {
   return (
     <div>
-        <h1 className="text-2xl md:text-3xl text-black font-bold text-center mb-8">{plan.name}</h1>
+        <h1 className="text-2xl md:text-3xl text-black font-bold text-center mb-4">{plan.name}</h1>
         <div className="flex justify-center items-center">
             {plan.image.map((image, idx) => (
             <motion.div
@@ -43,9 +43,12 @@ export default function MealPlanContent(plan: mealPlan) {
             </motion.div>
             ))}
         </div>
-        <div className="py-10 flex flex-wrap gap-x-4 gap-y-6 items-start justify-start mx-auto">
+        <div className="flex flex-wrap gap-x-4 gap-y-6 mx-auto mt-8">
             <p className="text-lg">{plan.description}</p>
-            <p className="text-3xl font-semibold">{`Rp ${plan.price.toLocaleString('id-ID')}`}</p>
+            <span className="flex flex-row justify-center items-center gap-2">
+                <p className="text-3xl font-semibold">{`Rp ${plan.price.toLocaleString('id-ID')}`}</p>
+                <p className="text-sm text-neutral-500">/ Meal</p>
+            </span>
         </div>
     </div>
   )

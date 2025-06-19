@@ -1,5 +1,7 @@
 "use client";
 import { Input } from "@/components/ui/input";
+import Spinner from "@/components/ui/Spinner";
+import { AnimatePresence } from "framer-motion";
 import { signIn } from "next-auth/react";
 import { DM_Sans } from "next/font/google";
 import { useRouter } from "next/navigation";
@@ -26,23 +28,33 @@ export default function Login() {
   
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const [loading, setLoading] = useState(false);
   
   const signUpText = "Don't have an account?";
   
   const onSubmit = async (data: z.infer<typeof loginSchema>) => {
     const response = await signIn("credentials", {
-      username: data.username,
+      username: data.username.toLowerCase(),
       password: data.password,
       redirect: false,
     });
     
     if (response?.error) {
+      setLoading(false);
       toast.error("Invalid username or password", {
         position: "top-center",
         duration: 3000,
       });
     } else {
-      handleNavigation("/");
+      toast.success("Login successful", {
+        position: "top-center",
+        duration: 3000,
+      });
+      setTimeout(() => {
+        setLoading(false);
+        handleNavigation("/");
+      }, 1000);
     }
   }
 
@@ -52,15 +64,22 @@ export default function Login() {
 
   return (
     <div className="flex items-center justify-center w-full h-screen bg-light-beige">
+      {loading && (
+        <AnimatePresence>
+          <Spinner />
+        </AnimatePresence>
+      )}
       <div className="container mx-auto p-4">
         <div className="max-w-lg mx-auto bg-white rounded-xl shadow-lg p-8">
           <form
             onSubmit={(e) => {
               e.preventDefault(); // prevent default form refresh
+              setLoading(true);
               const result = loginSchema.safeParse({ username, password });
               if (result.success) {
                 onSubmit(result.data);
               } else {
+                setLoading(false);
                 toast.error("Please fill in all fields correctly.", {
                   position: "top-center",
                   duration: 3000,

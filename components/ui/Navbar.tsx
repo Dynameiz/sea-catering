@@ -103,7 +103,6 @@ export default function Navbar() {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 1 }}
-                      // onClick={() => handleNavigation('/dashboard')}
                       className='p-2 cursor-pointer'
                     >
                       <Avatar className='w-10 h-10 rounded-full'>
@@ -114,12 +113,12 @@ export default function Navbar() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56" align="end">
                   <DropdownMenuItem className='flex items-center cursor-pointer text-lg' onClick={() => handleNavigation('/dashboard')}>
-                    <LucideUserRound />
+                    <LucideUserRound className='text-beige' />
                     Profile
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem className='flex items-center cursor-pointer text-lg' onClick={() => signOut({ callbackUrl: '/' })}>
-                    <LogOutIcon/>
+                    <LogOutIcon className='text-beige' />
                     Log out
                   </DropdownMenuItem>
                 </DropdownMenuContent>
