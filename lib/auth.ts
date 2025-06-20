@@ -30,6 +30,8 @@ const authConfig = {
         return {
           id: user.id.toString(),
           username: user.username,
+          fullName: user.fullName,
+          phoneNumber: user.phoneNumber,
           role: user.role,
         } as User;
       },

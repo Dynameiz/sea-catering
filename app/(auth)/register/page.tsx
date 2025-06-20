@@ -32,7 +32,8 @@ const UserSchema = z.object({
   phoneNumber: z
     .string()
     .min(10, "Phone number is required")
-    .max(15, "Phone number must be less than 15 characters"),
+    .max(15, "Phone number must be less than 15 characters")
+    .regex(/^\d+$/, "Phone number must contain only digits"),
   password: z
     .string()
     .min(1, "Password is required")
@@ -102,6 +103,14 @@ export default function Register() {
     if (data.phoneNumber.length < 10 || data.phoneNumber.length > 15) {
       setLoading(false);
       toast.error("Phone number must be between 10 and 15 characters", {
+        position: "top-center",
+        duration: 3000,
+      });
+      return;
+    }
+    if (!/^\d+$/.test(data.phoneNumber)) {
+      setLoading(false);
+      toast.error("Phone number must contain only digits", {
         position: "top-center",
         duration: 3000,
       });
@@ -209,7 +218,7 @@ export default function Register() {
             <h1 className="text-4xl font-bold mb-8">Register</h1>
             <div className="grid grid-cols-2 gap-4 w-full mb-4">
               <div className="flex flex-col items-start w-full">
-                <p className="text-sm mb-1 font-semibold">First Name</p>
+                <p className="text-sm mb-1 font-semibold">First Name <span className="text-red-700">*</span></p>
                 <Input
                   type="text"
                   placeholder="John"
@@ -218,7 +227,7 @@ export default function Register() {
                 />
               </div>
               <div className="flex flex-col items-start w-full">
-                <p className="text-sm mb-1 font-semibold">Last Name</p>
+                <p className="text-sm mb-1 font-semibold">Last Name <span className="text-red-700">*</span></p>
                 <Input
                   type="text"
                   placeholder="Doe"
@@ -228,7 +237,7 @@ export default function Register() {
               </div>
             </div>
             <div className="flex flex-col items-start w-full mb-4">
-              <p className="text-sm mb-1 font-semibold">Username</p>
+              <p className="text-sm mb-1 font-semibold">Username <span className="text-red-700">*</span></p>
               <Input
                 type="text"
                 placeholder="COMPFEST"
@@ -237,7 +246,7 @@ export default function Register() {
               />
             </div>
             <div className="flex flex-col items-start w-full mb-4">
-              <p className="text-sm mb-1 font-semibold">Phone Number</p>
+              <p className="text-sm mb-1 font-semibold">Phone Number <span className="text-red-700">*</span></p>
               <Input
                 type="text"
                 placeholder="087812345678"
@@ -246,7 +255,7 @@ export default function Register() {
               />
             </div>
             <div className="flex flex-col items-start w-full mb-4">
-              <p className="text-sm mb-1 font-semibold">Password</p>
+              <p className="text-sm mb-1 font-semibold">Password <span className="text-red-700">*</span></p>
               <Input
                 type="password"
                 placeholder="Enter Password"
@@ -255,7 +264,7 @@ export default function Register() {
               />
             </div>
             <div className="flex flex-col items-start w-full mb-4">
-              <p className="text-sm mb-1 font-semibold">Confirm Password</p>
+              <p className="text-sm mb-1 font-semibold">Confirm Password <span className="text-red-700">*</span></p>
               <Input
                 type="password"
                 placeholder="Confirm Your Password"

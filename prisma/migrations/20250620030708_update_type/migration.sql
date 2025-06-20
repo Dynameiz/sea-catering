@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Subscription" ALTER COLUMN "mealPlan" SET NOT NULL,
+ALTER COLUMN "mealPlan" SET DATA TYPE TEXT;

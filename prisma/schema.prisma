@@ -30,19 +30,10 @@ model Subscription {
   userId        Int
   allergies     String?
   createdAt     DateTime @default(now())
-  mealPlan      MealPlan @relation(fields: [mealPlanId], references: [id])
-  mealPlanId    Int
-  meals         String[]
-  deliveryDays  String[]
-}
-
-model MealPlan {
-  id            Int   @id @default(autoincrement())
-  name          String
   price         Int
-  description   String
-  imageUrl      String?
-  subscriptions Subscription[]
+  mealPlan      String
+  mealType      String[]
+  deliveryDays  String[]
 }
 
 model Testimonial {

@@ -4,10 +4,12 @@
   --dark-green: #13312C;
   --dark-green-2: #0d5047;
   --green: #105E54;
-  --light-green: #A9BFA9;
+  --light-green: #D0F0C0;
   --beige: #FFF0C5;
+  --beige-2: #f6e2aa;
   --light-beige: #FAF6EC;
   --light-beige-2: #F0E9D8;
+  --light-beige-3: #fdf7e6;
   --dark-grey: #333333;
 
   --radius: 0.625rem;
@@ -50,8 +52,10 @@
   --color-green: var(--green);
   --color-light-green: var(--light-green);
   --color-beige: var(--beige);
+  --color-beige-2: var(--beige-2);
   --color-light-beige: var(--light-beige);
   --color-light-beige-2: var(--light-beige-2);
+  --color-light-beige-3: var(--light-beige-3);
   --color-dark-grey: var(--dark-grey);
   --animate-scroll: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
  
