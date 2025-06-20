@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+![Banner](https://github.com/user-attachments/assets/13228ed4-b9e5-4462-8a9f-f67c591f10eb)
 
-## Getting Started
+<h2 align="center"><b>SEA Catering: Healthy Meals, Anytime, Anywhere</b></h2>
 
-First, run the development server:
+<p align="center">Sea Catering is a personalized meal subscription service built with Next.js 15, Prisma ORM, PostgreSQL, and NextAuth v5. It allows users to browse meal plans, customize subscriptions, and securely manage their account.</p>
+
+---
+
+<p align="center"><b>Visit Our Website:</b></p>
+<a href="https://sea-catering-hn.vercel.app/" align="center">
+
+![Button](https://github.com/user-attachments/assets/1c54fd7a-aa40-4597-9336-28a486c8e2cb)
+  
+</a>
+
+---
+
+## ❗ Problem
+
+SEA Catering has recently gained a lot of attention for providing customizable healthy meals that can be delivered to cities across Indonesia. What started as a small business has now gone viral, leading to a huge increase in orders from customers all over the country.
+
+Managing this growth manually has led to inefficiencies, increased errors in orders, and a lack of personalization in meal selection and delivery logistics. Customers also lack a clear way to track or update their subscriptions.
+
+## ✨ Solution
+
+To address this, SEA Catering is investing in a modern web platform. This app streamlines the ordering process, allows customers to customize their meals, see detailed nutritional information, and manage their subscriptions seamlessly. It also enables better backend management for scaling operations and handling more users.
+
+This project helps SEA Catering meet demand and makes eating healthy more accessible to everyone in Indonesia.
+
+
+---
+
+## 🚀 Features
+
+* 🌱 User registration with secure password hashing using bcrypt
+* 🔐 Authentication with NextAuth (credentials-based)
+* 📦 Meal plan selection with detailed modal views
+* 🍽️ Subscription with customizable delivery days and allergy preferences
+* 🧾 Testimonials section with user feedback
+* 🧑‍💼 Admin-ready structure (with role-based access control)
+
+---
+
+## 🧠 Tech Stack
+
+* **Frontend**: Next.js 15 (App Router)
+* **Database**: PostgreSQL (hosted on Supabase)
+* **ORM**: Prisma
+* **Authentication**: NextAuth.js v5 (JWT strategy)
+* **Validation**: Zod
+* **Styling**: Tailwind CSS
+* **Deployment**: Vercel
+
+---
+
+## 📦 Installation
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/your-username/sea-catering.git
+cd sea-catering
+```
+
+2. **Install dependencies**
+
+```bash
+npm install
+```
+
+3. **Setup environment variables** Create a `.env` file and fill in:
+
+```env
+DATABASE_URL=your_supabase_postgres_connection
+AUTH_SECRET=your_nextauth_secret
+NEXTAUTH_URL=http://localhost:3000
+```
+
+4. **Generate Prisma client**
+
+```bash
+npx prisma generate
+```
+
+5. **Run database migrations (optional if you already pushed)**
+
+```bash
+npx prisma db push
+```
+
+6. **Start the dev server**
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📄 License
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project is for academic/non-commercial purposes only. All rights reserved by the creator.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🙋‍♂️ Author
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Hans William Christianto Wijaya
