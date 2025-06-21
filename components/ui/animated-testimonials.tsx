@@ -56,8 +56,8 @@ export const AnimatedTestimonials = ({
   }, [testimonials]);
 
   return (
-    <div className={`mx-auto max-w-sm px-4 py-20 ${dmSans.className} antialiased md:max-w-4xl md:pt-8 lg:px-12`}>
-      <div className="relative grid grid-cols-1 gap-20 md:grid-cols-2">
+    <div className={`mx-auto max-w-sm px-4 pt-8 md:pt-10 ${dmSans.className} antialiased md:max-w-4xl md:pt-8 lg:px-12`}>
+      <div className="relative grid grid-cols-1 gap-10 md:gap-20 md:grid-cols-2">
         <div>
           <div className="relative h-80 w-full">
             <AnimatePresence>
@@ -131,7 +131,7 @@ export const AnimatedTestimonials = ({
             <p className="text-sm text-light-beige">
               {testimonials[active].designation}
             </p>
-            <motion.p className="mt-8 text-lg text-light-beige">
+            <motion.p className="mt-8 md:text-lg text-justify text-light-beige">
               {testimonials[active].quote.split(" ").map((word, index) => (
                 <motion.span
                   key={index}
@@ -157,7 +157,7 @@ export const AnimatedTestimonials = ({
               ))}
             </motion.p>
           </motion.div>
-          <div className="flex gap-4 pt-12 md:pt-0">
+          <div className="flex gap-4 pt-8 md:pt-0">
             <button
               onClick={handlePrev}
               className="group/button flex h-7 w-7 items-center justify-center rounded-full bg-beige shadow-md cursor-pointer"

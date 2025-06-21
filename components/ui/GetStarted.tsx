@@ -20,14 +20,14 @@ export default function GetStarted() {
         <div className="flex flex-col items-center justify-center w-full px-4 py-8 mx-auto bg-green">
             <div className="container mx-auto flex flex-col items-center justify-center text-center">
                 <Logo width={96} height={96} />
-                <h1 className="text-3xl lg:text-4xl font-bold text-beige mt-4">Ready to Eat Better, Feel Better?</h1>
-                <p className="mt-4 max-w-4xl text-light-beige text-lg text-center leading-loose">
+                <h1 className="text-2xl lg:text-4xl font-bold text-beige mt-4">Ready to Eat Better, Feel Better?</h1>
+                <p className="mt-4 max-w-4xl text-light-beige sm:text-lg text-center leading-loose">
                     Join the SEA Catering family today and enjoy nutritious, home-cooked meals made just for you — delivered with care to your doorstep anywhere in Indonesia.
                 </p>
                 <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 1.0 }}
-                    className="mt-4 px-6 py-3 bg-beige text-dark-green font-semibold rounded-lg cursor-pointer"
+                    className="mt-4 px-4.5 py-2 sm:px-6 sm:py-3 bg-beige text-dark-green font-semibold rounded-lg cursor-pointer"
                     onClick={handleClick}
                 >
                     Get Started

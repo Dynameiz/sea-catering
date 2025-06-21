@@ -23,8 +23,8 @@ export default function About() {
             <Image src={"/badoobee.png"} alt="Badoobee" width={300} height={300} className="w-full h-auto object-cover" draggable={false}/>
           </div>
           <div className="container flex flex-col w-full justify-center">
-            <h1 className="text-4xl lg:text-5xl font-bold">About Us</h1>
-            <p className="mt-4 text-lg text-justify leading-loose">
+            <h1 className="text-4xl lg:text-5xl font-bold text-center lg:text-start">About Us</h1>
+            <p className="mt-4  md:text-lg text-justify lg:leading-loose">
               {aboutUs}
             </p>
           </div>
@@ -41,7 +41,7 @@ export default function About() {
         <div className="absolute inset-0 bg-dark-green opacity-80 pointer-events-none" />
         <div className="container mx-auto flex flex-col items-center justify-center text-center relative z-10">
           <h1 className="text-4xl lg:text-5xl font-bold text-beige border-b-2 pb-3">Our Mission</h1>
-          <p className="mt-4 max-w-3xl text-light-beige text-lg text-center leading-loose">
+          <p className="mt-4 max-w-sm sm:max-w-md md:max-w-3xl text-light-beige md:text-lg text-center lg:leading-loose">
             {mission}
           </p>
         </div>

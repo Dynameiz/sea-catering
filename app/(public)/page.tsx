@@ -206,21 +206,21 @@ export default function Home() {
             transition={{ type: "spring", duration: 2.5, bounce: 0.3 }}
             className="container mx-auto flex flex-col px-4 py-12 text-center items-center justify-center lg:pl-48 lg:py-0"
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
+            <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
               Healthy Meals,
             </h1>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
+            <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
               Anytime, Anywhere
             </h1>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleNavigation("/plans")}
-              className="w-fit px-8 py-3 mt-4 rounded-lg bg-green text-light-beige text-lg sm:text-xl font-semibold shadow-md cursor-pointer"
+              className="w-fit px-5 py-3 md:px-8 md:py-3 mt-2 md:mt-4 rounded-lg bg-green text-light-beige sm:text-xl font-semibold shadow-md cursor-pointer"
             >
               Explore Plans
             </motion.button>
-            <p className="mt-4 italic text-base sm:text-lg">
+            <p className="mt-2 md:mt-4 italic text-base sm:text-lg">
               Skip or Cancel Anytime
             </p>
           </motion.div>
@@ -237,16 +237,16 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="flex flex-col items-center justify-center w-full py-24 lg:py-16 bg-light-beige-2">
+      <section className="flex flex-col items-center justify-center w-full py-8 lg:py-16 bg-light-beige-2">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="text-4xl lg:text-5xl font-bold text-center border-b-2 pb-3 border-green"
+          className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center border-b-2 pb-3 border-green"
         >
           How SEA Catering Works
         </motion.h1>
-        <div className="container mx-auto mt-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="container mx-auto mt-2 md:mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8">
           {guides.map((guide, index) => (
             <motion.div
               key={index}
@@ -260,11 +260,11 @@ export default function Home() {
               alt={guide.title}
               width={128}
               height={128}
-              className="w-32 h-32 mb-4 object-contain"
+              className="w-32 h-32 md:mb-4 object-contain"
               draggable={false}
               />
               <h2 className="text-2xl font-semibold mb-2">{guide.title}</h2>
-              <p className="text-lg">{guide.description}</p>
+              <p className="md:text-lg max-w-sm">{guide.description}</p>
             </motion.div>
           ))}
         </div>
@@ -274,20 +274,20 @@ export default function Home() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => handleNavigation("/plans")}
-          className="mt-8 px-6 py-3 rounded-lg bg-green text-light-beige shadow-md text-lg sm:text-xl font-semibold cursor-pointer"
+          className="w-fit px-5 py-3 md:px-8 md:py-3 mt-6 md:mt-8 rounded-lg bg-green text-light-beige sm:text-xl font-semibold shadow-md cursor-pointer"
         >
           Get Started
         </motion.button>
       </section>
-      <section className="flex flex-col items-center justify-center w-full pt-24 lg:pt-16 bg-green">
-        <h1 className="text-4xl lg:text-5xl font-bold text-center text-beige border-b-2 pb-3 border-light-beige z-50">
+      <section className="flex flex-col items-center justify-center w-full py-8 lg:py-16 bg-green">
+        <h1 className="text-3xl lg:text-5xl font-bold text-center text-beige border-b-2 pb-3 md:mb-4 border-light-beige z-50">
           Crafted in the Kitchen, Delivered to You
         </h1>
         <AnimatedTestimonials testimonials={keyFeatures} autoplay={true} />
       </section>
       <section className="flex flex-col items-center justify-center w-full bg-light-beige">
         <div className="container mx-auto flex flex-col items-center justify-center px-4 py-12">
-          <h1 className="text-4xl lg:text-5xl font-bold text-center border-b-2 pb-3 border-green">
+          <h1 className="text-3xl lg:text-5xl font-bold text-center border-b-2 pb-3 border-green">
             Our Menu
           </h1>
           <div className="w-full mt-8">
@@ -323,20 +323,20 @@ export default function Home() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => handleNavigation("/menu")}
-            className="px-6 py-3 rounded-lg bg-green text-light-beige shadow-md text-lg sm:text-xl font-semibold cursor-pointer"
+            className="w-fit px-5 py-3 md:px-8 md:py-3 rounded-lg bg-green text-light-beige sm:text-xl font-semibold shadow-md cursor-pointer"
           >
             View Full Menu
           </motion.button>
         </div>
       </section>
-      <section className="flex flex-col items-center justify-center w-full py-24 lg:py-8 bg-green">
-        <h1 className="text-3xl lg:text-4xl font-bold text-center text-light-beige">
+      <section className="flex flex-col items-center justify-center w-full py-8 bg-green">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center text-light-beige">
           Have any Questions?
         </h1>
-        <h1 className="text-4xl lg:text-5xl font-bold text-center text-beige">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-beige">
           We have Answers!
         </h1>
-        <div className="container mx-auto mt-8 max-w-sm sm:max-w-xl md:max-w-3xl">
+        <div className="container mx-auto mt-4 md:mt-8 max-w-sm sm:max-w-xl md:max-w-3xl">
           <Accordion
             type="single"
             collapsible
@@ -344,9 +344,9 @@ export default function Home() {
             defaultValue="item-1"
           >
             <AccordionItem value="item-1">
-              <AccordionTrigger className="text-2xl text-beige">Can you accommodate dietary restrictions and allergies?</AccordionTrigger>
+              <AccordionTrigger className="text-lg sm:text-2xl text-beige">Can you accommodate dietary restrictions and allergies?</AccordionTrigger>
               <AccordionContent className="flex flex-col gap-4 text-balance">
-                <p className="text-lg text-light-beige">
+                <p className="sm:text-lg text-light-beige">
                   Absolutely. We can tailor our menus to meet a range of dietary needs,
                   including vegetarian, vegan, gluten-free, dairy-free, nut-free, halal,
                   kosher, and more. Please inform us of any allergies or special requests
@@ -355,9 +355,9 @@ export default function Home() {
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
-              <AccordionTrigger className="text-2xl text-beige">Can I customize my menu?</AccordionTrigger>
+              <AccordionTrigger className="text-lg sm:text-2xl text-beige">Can I customize my menu?</AccordionTrigger>
               <AccordionContent className="flex flex-col gap-4 text-balance">
-                <p className="text-lg text-light-beige">
+                <p className="sm:text-lg text-light-beige">
                   Yes! One of our experienced catering coordinators will work
                   closely with you to create a personalized menu that reflects
                   your tastes, dietary needs, and event theme. We offer seasonal
@@ -366,9 +366,9 @@ export default function Home() {
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-3">
-              <AccordionTrigger className="text-2xl text-beige">What are your pricing options?</AccordionTrigger>
+              <AccordionTrigger className="text-lg sm:text-2xl text-beige">What are your pricing options?</AccordionTrigger>
               <AccordionContent className="flex flex-col gap-4 text-balance">
-                <p className="text-lg text-light-beige">
+                <p className="sm:text-lg text-light-beige">
                   Our pricing varies depending on the type of service, menu selections,
                   number of guests, and event location. We offer tiered packages and
                   customized quotes to fit different budgets. Contact us today for a
@@ -381,7 +381,7 @@ export default function Home() {
       </section>
       <section className="relative flex flex-col items-center justify-center w-full bg-light-beige overflow-hidden">
         <div className="container mx-auto flex flex-col items-center justify-center px-4 py-12">
-          <h1 className="text-4xl lg:text-5xl font-bold text-center border-b-2 pb-3 border-green">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center border-b-2 pb-3 border-green">
             Voices of Our Community
           </h1>
         </div>
@@ -398,11 +398,11 @@ export default function Home() {
             />
             </div>
           <div className="w-full h-full flex flex-col items-center justify-center p-8 rounded-r-2xl bg-[#FFFFFF]">
-            <h2 className="font-semibold text-3xl md:text-4xl border-b-2 pb-1 border-green">
+            <h2 className="font-semibold text-2xl md:text-4xl border-b-2 pb-1 border-green">
               Leave us a Review
             </h2>
             <form className="w-full max-w-xl flex flex-col gap-4 mt-6">
-              <label className="flex flex-col text-left font-medium text-lg">
+              <label className="flex flex-col text-left font-medium sm:text-lg">
                 Name
                 <input
                   type="text"
@@ -413,7 +413,7 @@ export default function Home() {
                   onChange={(e) => setName(e.target.value)}
                 />
               </label>
-              <label className="flex flex-col text-left font-medium text-lg">
+              <label className="flex flex-col text-left font-medium sm:text-lg">
                 Review
                 <textarea
                   name="review"
@@ -547,7 +547,7 @@ export default function Home() {
                     });
                   }
                 }}
-                className="px-6 py-3 rounded-lg bg-green text-light-beige shadow-md text-lg sm:text-xl font-semibold cursor-pointer"
+                className="px-6 py-3 rounded-lg bg-green text-light-beige shadow-md text sm:text-lg font-semibold cursor-pointer"
               >
                 Submit Review
               </motion.button>

@@ -54,8 +54,8 @@ export default function Footer() {
             </motion.a>
         ))}
     </div>
-    <h3 className="text-2xl font-semibold mb-4">Brian - 08123456789</h3>
-    <p className="absolute bottom-0 w-full mb-4 text-lg text-center">
+    <h3 className="text-xl sm:text-2xl font-semibold mb-4">Brian - 08123456789</h3>
+    <p className="absolute bottom-0 w-full mb-4 text-sm md:text-lg text-center">
         © 2025 SEA Catering. All rights reserved.
     </p>
     </footer>

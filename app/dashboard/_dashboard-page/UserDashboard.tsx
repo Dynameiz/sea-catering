@@ -18,9 +18,9 @@ export default function UserDashboard() {
   return (
     <div className={`${dmSans.className} flex flex-1`}>
       <div className="grid grid-cols-1 grid-rows-[repeat(5,minmax(0,1fr))] gap-6 w-full p-4 md:p-10 bg-light-beige-2 rounded-tl-2xl
-        md:grid-cols-3 md:grid-rows-3">
+        lg:grid-cols-3 lg:grid-rows-3">
         <div className="row-span-2 flex flex-col items-center justify-center bg-white rounded-xl shadow-md p-8
-          md:row-span-3 md:col-span-1">
+          lg:row-span-3 lg:col-span-1">
           <Image src={"/default-avatar.png"} alt="User Avatar" width={160} height={160} className="h-48 w-48 rounded-full" draggable={false} />
           <h1 className="text-2xl font-bold mt-4">{`@${session?.user.username}` || "User"}</h1>
           <p className="text-gray-600 mt-1 text-sm">{session?.user.phoneNumber || "Phone Number"}</p>
@@ -46,7 +46,7 @@ export default function UserDashboard() {
           <span className="text-lg font-semibold text-gray-700">Bento Box 3</span>
         </div>
         <div className="col-span-1 row-span-2 bg-white rounded-xl shadow-md flex items-center justify-center p-6
-          md:col-span-2 md:row-span-2">
+          lg:col-span-2 lg:row-span-2">
           <span className="text-lg font-semibold text-gray-700">All Subscription</span>
         </div>
       </div>

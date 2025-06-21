@@ -66,7 +66,7 @@ export default function Navbar() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 1 }}
             onClick={() => setHamburgerOpen(true)}
-            className='lg:hidden flex items-center justify-center p-2 rounded-md text-beige cursor-pointer'
+            className='lg:hidden flex items-center justify-center p-2 rounded-md text-beige cursor-pointer w-12 h-12 sm:w-14 sm:h-14'
           >
             <Hamburger width={40} height={40} />
           </motion.button>
@@ -76,8 +76,10 @@ export default function Navbar() {
               onClick={() => handleNavigation('/')}
               className='flex flex-row gap-3 items-center justify-center cursor-pointer'
           >
-              <Logo width={48} height={48} />
-              <h1 className={`${dynaPuff.className} text-2xl text-beige`}>SEA Catering</h1>
+              <div className='flex flex-row w-8 h-8 sm:w-12 sm:h-12 items-center justify-center'>
+                <Logo width={48} height={48} />
+              </div>
+              <h1 className={`${dynaPuff.className} text-xl sm:text-2xl text-beige`}>SEA Catering</h1>
           </motion.button>
           <div className='grow hidden lg:block'>
             <div className='flex flex-row xl:gap-8 lg:gap-4 items-center justify-center'> 
@@ -128,7 +130,7 @@ export default function Navbar() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 1 }}
                 onClick={() => handleNavigation('/login')}
-                className=' px-4 py-2 text-beige hover:bg-beige hover:text-dark-green border-2 border-beige cursor-pointer rounded-lg font-semibold'
+                className='px-3 py-1.5 sm:px-4 sm:py-2 text-sm text-beige hover:bg-beige hover:text-dark-green border-2 border-beige cursor-pointer rounded-lg font-semibold'
               >
                 Log in
               </motion.button>

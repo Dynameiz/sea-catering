@@ -26,7 +26,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`antialiased mx-auto flex w-full flex-1 flex-col overflow-hidden bg-dark-green md:flex-row`}
+        className={`antialiased mx-auto flex w-full flex-1 flex-col bg-dark-green md:flex-row`}
       >
         <Providers>
           <SidebarClient />
