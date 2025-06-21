@@ -1,8 +1,10 @@
 "use client";
 import { Input } from "@/components/ui/input";
+import Spinner from "@/components/ui/Spinner";
 import { Toggle } from "@/components/ui/toggle";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import axios from "axios";
+import { AnimatePresence } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { DM_Sans } from "next/font/google";
 import Image from "next/image";
@@ -170,6 +172,11 @@ export default function AddSubscription() {
 
   return (
     <div className={`${dmSans.className} flex flex-1`}>
+        {loading && (
+          <AnimatePresence>
+            <Spinner />
+          </AnimatePresence>
+        )}
         <div className="w-full rounded-tl-2xl mx-auto flex items-center justify-center min-h-screen bg-light-beige-2 p-4 md:p-10">
           <div className="container flex flex-col items-center justify-center w-full max-w-7xl p-2 sm:p-4 md:p-6 bg-[#FFFFFF] rounded-xl shadow-md mt-4 sm:mt-6 md:mt-8">
             <form 
