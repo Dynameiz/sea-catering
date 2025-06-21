@@ -33,6 +33,7 @@ const authConfig = {
           fullName: user.fullName,
           phoneNumber: user.phoneNumber,
           role: user.role,
+          createdAt: user.createdAt,
         } as User;
       },
     }),

@@ -31,21 +31,21 @@ const pages = [
     link: '/',
   },
   {
+    name: 'About Us',
+    link: '/about',
+  },
+  {
     name: 'Meal Plans',
     link: '/plans',
   },
   {
-    name: 'About Us',
-    link: '/about',
+    name: 'Subscription',
+    link: '/subscription'
   },
   {
     name: 'Contact',
     link: '/contact',
   },
-  {
-    name: 'Subscription',
-    link: '/subscription'
-  }
 ]
 
 export default function Navbar() {

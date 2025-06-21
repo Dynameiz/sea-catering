@@ -10,7 +10,7 @@ export default function GetStarted() {
 
     const handleClick = () => {
         if (status === 'authenticated') {
-            router.push('/dashboard');
+            router.push('/subscription');
         } else {
             router.push('/login');
         }

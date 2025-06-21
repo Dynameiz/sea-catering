@@ -1,6 +1,9 @@
 import { Metadata } from "next";
 import "@/app/globals.css";
 import { Providers } from "../provider";
+import { SidebarClient } from "@/components/ui/SidebarClient";
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 
 export const metadata: Metadata = {
@@ -8,18 +11,25 @@ export const metadata: Metadata = {
   description: "Healthy Meals, Anytime, Anywhere",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const session = await auth();
+
+  if (!session) {
+    redirect("/login");
+  }
+
   return (
     <html lang="en">
       <body
-        className={`antialiased`}
+        className={`antialiased mx-auto flex w-full flex-1 flex-col overflow-hidden bg-dark-green md:flex-row`}
       >
         <Providers>
-          
+          <SidebarClient />
           {children}
         </Providers>
       </body>

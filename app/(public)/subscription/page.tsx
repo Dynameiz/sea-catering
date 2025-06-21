@@ -185,7 +185,7 @@ export default function Subscription() {
       <section className="flex flex-col items-center justify-center w-full px-4 py-8 mx-auto bg-light-beige-2">
         <div className="container mx-auto mt-24 flex flex-col items-center justify-center">
           <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold pb-2 px-3 border-b-2 border-green">Build Your Perfect Meal Plan</h1>
-          <div className="container flex flex-col items-center justify-center w-full max-w-7xl p-6 bg-[#FFFFF0] rounded-lg shadow-md mt-8">
+          <div className="container flex flex-col items-center justify-center w-full max-w-7xl p-6 bg-[#FFFFFF] rounded-lg shadow-md mt-8">
             <form 
               onSubmit={(e) => {
               e.preventDefault(); // prevent default form refresh

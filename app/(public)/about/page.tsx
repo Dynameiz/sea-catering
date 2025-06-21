@@ -17,7 +17,7 @@ const mission = "To make healthy eating easy, affordable, and enjoyable for ever
 export default function About() {
   return (
     <div className={`${dmSans.className} relative flex-col items-center justify-center w-full min-h-screen`}>
-      <section className="flex flex-col items-center justify-center w-full px-4 py-8 mx-auto bg-beige">
+      <section className="flex flex-col items-center justify-center w-full px-4 py-8 mx-auto bg-light-beige-2">
         <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3 lg:[&>*:first-child]:col-span-1 lg:[&>*:last-child]:col-span-2 mt-16 overflow-hidden">
           <div className="container flex items-center justify-center w-full">
             <Image src={"/badoobee.png"} alt="Badoobee" width={300} height={300} className="w-full h-auto object-cover" draggable={false}/>
