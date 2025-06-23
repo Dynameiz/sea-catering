@@ -143,7 +143,7 @@ export default function AddSubscription() {
         selectedDays: parsedData.selectedDays,
         selectedMealType: parsedData.selectedMealType,
         selectedPlan: parsedData.selectedPlan,
-        price: price,
+        price: price * (selectedMealType.length === 0 ? 1 : selectedMealType.length) * (selectedDays.length === 0 ? 1 : selectedDays.length) * 4.3,
         userId: session?.user?.id ? parseInt(session.user.id, 10) : undefined,
       });
 
