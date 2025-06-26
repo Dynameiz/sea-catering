@@ -13,6 +13,7 @@ import { IconCancel, IconInfoCircle, IconPlayerPauseFilled, IconPlayerPlayFilled
 type TableProps = {
   data: Subscription[];
   handleUpdateStatus: (subscription: Subscription) => void;
+  setSelectedSubscription: (subscription: Subscription | null) => void;
 }
 
 export function DataTable(props : TableProps) {
@@ -39,19 +40,6 @@ export function DataTable(props : TableProps) {
       accessorKey: "mealPlan",
       header: "Meal Plan",
       cell: ({ row }) => <div>{row.getValue("mealPlan")}</div>,
-    },
-    {
-      accessorKey: "createdAt",
-      header: "Created At",
-      cell: ({ row }) => {
-        const date = new Date(row.getValue("createdAt") as string)
-        return <div>{date.toLocaleDateString()}</div>
-      },
-    },
-    {
-      accessorKey: "allergies",
-      header: "Allergies",
-      cell: ({ row }) => <div>{row.getValue("allergies")}</div>,
     },
     {
       accessorKey: "mealType",
@@ -183,7 +171,7 @@ export function DataTable(props : TableProps) {
                     }
                   </DropdownMenuItem>
                 <ModalTrigger>
-                  <DropdownMenuItem className="py-2 cursor-pointer">
+                  <DropdownMenuItem className="py-2 cursor-pointer" onClick={() => {props.setSelectedSubscription(row.original)}}>
                     <div className="flex flex-row items-center gap-2">
                       <IconInfoCircle className="h-4 w-4" />
                       View Detail
@@ -304,12 +292,3 @@ export function DataTable(props : TableProps) {
     </div>
   )
 }
-
-export function ViewSubscription() {
-  return (
-    <div>
-      <h2 className="text-xl font-semibold mb-4">Details</h2>
-      
-    </div>
-  );
-} 
