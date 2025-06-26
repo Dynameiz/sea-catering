@@ -10,11 +10,20 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from ".
 import { Subscription } from "@/types/types";
 import { IconCancel, IconInfoCircle, IconPlayerPauseFilled, IconPlayerPlayFilled, IconReload } from "@tabler/icons-react";
 
-export function DataTable({ data }: { data: Subscription[] }) {
+type TableProps = {
+  data: Subscription[];
+  handleUpdateStatus: (subscription: Subscription) => void;
+}
+
+export function DataTable(props : TableProps) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({})
+
+  const changeStatus = (subscription: Subscription) => {
+    props.handleUpdateStatus(subscription);
+  }
   
   const columns: ColumnDef<Subscription>[] = [
     {
@@ -118,7 +127,21 @@ export function DataTable({ data }: { data: Subscription[] }) {
             <DropdownMenuContent className="flex flex-col" align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-                  <DropdownMenuItem className="py-2 cursor-pointer" onClick={() => {}}>
+                    <DropdownMenuItem className="py-2 cursor-pointer"
+                      disabled={status === "CANCELLED"}
+                      onClick={() => {
+                        const selected = row.original;
+                        const status = row.getValue("status");
+
+                        if (status === "ACTIVE") {
+                          selected.status = "PAUSED";
+                        } else if (status === "PAUSED") {
+                          selected.status = "ACTIVE";
+                        }
+                        
+                        changeStatus(selected);
+                      }}
+                    >
                     {status === "PAUSED" ? (
                         <div className="flex flex-row items-center gap-2">
                           <IconPlayerPlayFilled className="h-4 w-4" />
@@ -127,12 +150,25 @@ export function DataTable({ data }: { data: Subscription[] }) {
                       ) : (
                         <div className="flex flex-row items-center gap-2">
                           <IconPlayerPauseFilled className="h-4 w-4" />
-                          Pause Subsription
+                          Pause Subscription
                         </div>
                       )
                     }
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="py-2 cursor-pointer" onClick={() => {}}>
+                  <DropdownMenuItem className="py-2 cursor-pointer" 
+                    onClick={() => {
+                        const selected = row.original;
+                        const status = row.getValue("status");
+
+                        if (status === "ACTIVE" || status === "PAUSED") {
+                          selected.status = "CANCELLED";
+                        } else if (status === "CANCELLED") {
+                          selected.status = "ACTIVE";
+                        }
+                        
+                        changeStatus(selected);
+                      }}
+                  >
                     {status === "CANCELLED" ? (
                         <div className="flex flex-row items-center gap-2">
                           <IconReload className="h-4 w-4" />
@@ -162,7 +198,7 @@ export function DataTable({ data }: { data: Subscription[] }) {
   ]
 
   const table = useReactTable<Subscription>({
-    data: data,
+    data: props.data,
     columns: columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

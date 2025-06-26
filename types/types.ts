@@ -1,4 +1,5 @@
 export type Subscription = {
+  id: number;
   mealPlan: string;
   allergies?: string | "-";
   createdAt: string;

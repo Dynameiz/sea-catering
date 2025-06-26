@@ -6,6 +6,7 @@ import { Modal, ModalBody, ModalContent } from "@/components/ui/animated-modal";
 import { DataTable, ViewSubscription } from "@/components/ui/DataTable";
 import { Subscription } from "@/types/types";
 import axios from "axios";
+import { toast } from "sonner";
 
 const dmSans = DM_Sans({
     weight: ['400', '500', '700'],
@@ -18,8 +19,8 @@ export default function MySubscription() {
   
   const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
 
-  useEffect(() => {
 
+  useEffect(() => {
     const fetchSubscriptions = async () => {
       try {
         const response = await axios.get('/api/subscription');
@@ -31,6 +32,27 @@ export default function MySubscription() {
     fetchSubscriptions();
   }, [subscriptions.length]);
 
+  const updateSubscription = async (selectedSubscription : Subscription) => {
+    try {
+      const response = await axios.put('/api/subscription', {
+        subscriptionId: selectedSubscription.id,
+        status: selectedSubscription.status,
+      });
+      
+      if (response.status === 200) {
+        toast.success("Subscription updated successfully!");
+        const refreshed = await axios.get('/api/subscription');
+        setSubscriptions(refreshed.data);
+      } else {
+        toast.error("Failed to update subscription.");
+      }
+
+    } catch (error) {
+      console.error("Error updating subscription:", error);
+    }
+  }
+
+
 
   return (
     <div className={`${dmSans.className} flex flex-1`}>
@@ -40,7 +62,7 @@ export default function MySubscription() {
             <h1 className="text-2xl md:text-3xl font-bold text-start">My Subscription</h1>
             <hr className="border-t-2 border-gray-200 my-4" />
             <div className="flex flex-col items-center justify-start h-full">
-              <DataTable data={subscriptions} />
+              <DataTable data={subscriptions} handleUpdateStatus={updateSubscription}  />
             </div>
           </div>
         </div>
