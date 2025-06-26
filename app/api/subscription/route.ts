@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { z } from "zod/v4";
 import { Prisma } from "@/lib/generated/prisma";
+import { auth } from "@/lib/auth";
 
 const SubscriptionSchema = z.object({
   fullName: z.string().min(1, "Full name is required").max(100, "Full name must be less than 100 characters"),
@@ -16,16 +17,13 @@ const SubscriptionSchema = z.object({
 
 const UpdateSchema = z.object({
     subscriptionId: z.number(),
-    allergies: z.string().optional(),
-    selectedDays: z.array(z.string()).min(1, "At least one delivery day must be selected"),
-    selectedMealType: z.array(z.string()).min(1, "At least one meal type must be selected"),
-    selectedPlan: z.string().min(1, "Please select a meal plan"),
-    price: z.number().min(0, "Price must be a positive number"),
+    status: z.enum(["ACTIVE", "PAUSED", "CANCELLED"]),
 });
 
 const DeleteSchema = z.object({
     subscriptionId: z.number(),
 });
+
 
 export async function POST(req: Request) {
     try {
@@ -72,6 +70,38 @@ export async function POST(req: Request) {
     }
 }
 
+export async function GET() {
+    const session = await auth();
+
+    if (!session) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const userId = parseInt(session.user.id, 10);
+    try {
+        const subscriptions = await prisma.subscription.findMany({
+            where: { userId },
+            select: {
+                id: true,
+                mealPlan: true,
+                allergies: true,
+                deliveryDays: true,
+                mealType: true,
+                price: true,
+                status: true,
+                createdAt: true,
+            },
+        });
+
+        return NextResponse.json(subscriptions, { status: 200 });
+
+    } catch (error) {
+        console.error("Error fetching subscriptions:", error);
+        return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    }
+}
+
+
 export async function PUT(req: Request) {
     try {
         const body = await req.json();
@@ -80,11 +110,7 @@ export async function PUT(req: Request) {
         const updatedSubscription = await prisma.subscription.update({
             where: { id: parsedData.subscriptionId },
             data: {
-                allergies: parsedData.allergies,
-                deliveryDays: parsedData.selectedDays,
-                mealType: parsedData.selectedMealType,
-                mealPlan: parsedData.selectedPlan,
-                price: parsedData.price,
+                status: parsedData.status,
             }
         });
 
