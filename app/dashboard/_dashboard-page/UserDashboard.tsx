@@ -33,6 +33,7 @@ export default function UserDashboard() {
       try {
         const response = await axios.get('/api/subscription');
         setSubscriptions(response.data);
+        console.log("Fetched Subscriptions:", subscriptions);
       } catch (error) {
         console.error("Error fetching subscriptions:", error);
       } finally {

@@ -30,16 +30,6 @@ const adminSidebarContent = [
     icon: <IconBrandTabler className="h-6 w-6 shrink-0 text-beige" />,
   },
   {
-    label: "User List",
-    href: "/dashboard/users",
-    icon: <IconUsers className="h-6 w-6 shrink-0 text-beige" />,
-  },
-  {
-    label: "Subscription List",
-    href: "/dashboard/subscription-list",
-    icon: <IconListDetails className="h-6 w-6 shrink-0 text-beige" />,
-  },
-  {
     label: "Back to Homepage",
     href: "/",
     icon: <IconArrowBackUp className="h-6 w-6 shrink-0 text-beige" />,

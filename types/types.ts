@@ -9,3 +9,9 @@ export type Subscription = {
   status: "ACTIVE" | "PAUSED" | "CANCELLED";
 };
 
+export type AdminDashboardData = {
+  newSubscriptions: number;
+  mrr: number;
+  reactivations?: number;
+  subscriptionGrowth: number;
+};
