@@ -27,11 +27,6 @@ const adminSidebarContent = [
     href: "/dashboard",
     icon: <IconBrandTabler className="h-6 w-6 shrink-0 text-beige" />,
   },
-  {
-    label: "Back to Homepage",
-    href: "/",
-    icon: <IconArrowBackUp className="h-6 w-6 shrink-0 text-beige" />,
-  },
 ];
 
 export default function AdminSidebar() {

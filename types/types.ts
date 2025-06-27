@@ -15,5 +15,5 @@ export type AdminDashboardData = {
   newSubscriptions: number;
   mrr: number;
   reactivations?: number;
-  subscriptionGrowth: number;
+  activeSubscriptions: number;
 };

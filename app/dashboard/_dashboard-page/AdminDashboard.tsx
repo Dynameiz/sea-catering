@@ -95,7 +95,7 @@ export default function AdminDashboard() {
               </div>
               <div className="flex flex-col items-start">
                 <span className="text-sm text-dark-grey">Subscription Growth</span>
-                <span className="text-2xl font-bold">{data.subscriptionGrowth ? data.subscriptionGrowth : '-'}</span>
+                <span className="text-2xl font-bold">{data.activeSubscriptions ? data.activeSubscriptions : '-'}</span>
               </div>
             </div>
             ) : (
