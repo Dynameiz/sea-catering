@@ -9,11 +9,14 @@ import { Input } from "./input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./table";
 import { Subscription } from "@/types/types";
 import { IconCancel, IconInfoCircle, IconPlayerPauseFilled, IconPlayerPlayFilled, IconReload } from "@tabler/icons-react";
+import Logo from "../assets/Logo";
 
 type TableProps = {
   data: Subscription[];
   handleUpdateStatus: (subscription: Subscription) => void;
   setSelectedSubscription: (subscription: Subscription | null) => void;
+  loading?: boolean;
+  setLoading?: (loading: boolean) => void;
 }
 
 export function DataTable(props : TableProps) {
@@ -236,7 +239,22 @@ export function DataTable(props : TableProps) {
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+
+            {
+            props.loading?
+              (<TableRow>
+                <TableCell colSpan={columns.length} className="h-24 text-center">
+                  <div className="flex flex-col items-center justify-center w-full gap-y-1">
+                    <div className="flex items-center justify-center w-16 h-16 animate-spin">
+                      <Logo color="#333333" />
+                    </div>
+                    <span className="">Fetching Data...</span>
+                  </div>
+                </TableCell>
+              </TableRow>) :
+
+
+            table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -266,10 +284,6 @@ export function DataTable(props : TableProps) {
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="text-muted-foreground flex-1 text-sm">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
         <div className="space-x-2">
           <Button
             variant="outline"

@@ -4,7 +4,6 @@ import Image from "next/image";
 import { Sidebar, SidebarBody, SidebarLink } from "./sidebar";
 import {
   IconArrowBackUp,
-  IconBrandTabler,
   IconLogout2,
   IconSquareRoundedPlus,
   IconToolsKitchen3,
@@ -27,11 +26,6 @@ const userSidebarContent = [
   {
     label: "Dashboard",
     href: "/dashboard",
-    icon: <IconBrandTabler className="h-6 w-6 shrink-0 text-beige" />,
-  },
-  {
-    label: "My Subscription",
-    href: "/dashboard/my-subscription",
     icon: <IconToolsKitchen3 className="h-6 w-6 shrink-0 text-beige" />,
   },
   {
