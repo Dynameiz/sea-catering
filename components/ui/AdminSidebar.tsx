@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { Sidebar, SidebarBody, SidebarLink } from "./sidebar";
 import {
-  IconArrowBackUp,
   IconBrandTabler,
   IconLogout2,
 } from "@tabler/icons-react";

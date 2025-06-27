@@ -16,10 +16,10 @@ const dmSans = DM_Sans({
 });
 
 
-const loginSchema = z.object({
-  username: z.string().min(1, "Username is required"),
-  password: z.string().min(1, "Password is required"),
-});
+type LoginSchema = {
+  username: string;
+  password: string;
+}
 
 
 export default function Login() {
@@ -33,7 +33,7 @@ export default function Login() {
   
   const signUpText = "Don't have an account?";
   
-  const onSubmit = async (data: z.infer<typeof loginSchema>) => {
+  const onSubmit = async (data: LoginSchema) => {
 
     if (!data.username) {
       setLoading(false);
