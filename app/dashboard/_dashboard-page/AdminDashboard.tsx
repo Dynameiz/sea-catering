@@ -1,7 +1,7 @@
 import Logo from "@/components/assets/Logo";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-import { AdminDataTable } from "@/components/ui/DataTable";
+// import { AdminDataTable } from "@/components/ui/DataTable";
 import { AdminDashboardData } from "@/types/types";
 import axios from "axios";
 import { DM_Sans } from "next/font/google";

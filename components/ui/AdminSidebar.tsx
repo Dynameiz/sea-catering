@@ -5,9 +5,7 @@ import { Sidebar, SidebarBody, SidebarLink } from "./sidebar";
 import {
   IconArrowBackUp,
   IconBrandTabler,
-  IconListDetails,
   IconLogout2,
-  IconUsers,
 } from "@tabler/icons-react";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
