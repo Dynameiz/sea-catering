@@ -7,7 +7,6 @@ import { DM_Sans } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
-import { z } from "zod/v4";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
