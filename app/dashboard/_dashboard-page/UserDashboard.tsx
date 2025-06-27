@@ -10,13 +10,30 @@ import axios from "axios";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import Tag from "@/components/ui/Tag";
-
+import { z } from "zod/v4";
 
 const dmSans = DM_Sans({
   weight: ['400', '500', '700'],
   subsets: ['latin'],
   variable: '--font-dm-sans',
   display: 'swap',
+});
+
+const UpdatedSubscriptionSchema = z.object({
+  subscriptionId: z.number(),
+  status: z.enum(["ACTIVE", "PAUSED", "CANCELLED"]),
+  cancelledAt: z
+    .string()
+    .optional()
+    .refine(val => val === undefined || !isNaN(Date.parse(val)), {
+      message: "Invalid cancelledAt",
+    }),
+  reactivatedAt: z
+    .string()
+    .optional()
+    .refine(val => val === undefined || !isNaN(Date.parse(val)), {
+      message: "Invalid reactivatedAt",
+    }),
 });
 
 export default function UserDashboard() {
@@ -33,7 +50,6 @@ export default function UserDashboard() {
       try {
         const response = await axios.get('/api/subscription');
         setSubscriptions(response.data);
-        console.log("Fetched Subscriptions:", subscriptions);
       } catch (error) {
         console.error("Error fetching subscriptions:", error);
       } finally {
@@ -45,9 +61,23 @@ export default function UserDashboard() {
 
   const updateSubscription = async (selectedSubscription : Subscription) => {
     try {
-      const response = await axios.put('/api/subscription', {
+      const parsedData = UpdatedSubscriptionSchema.safeParse({
         subscriptionId: selectedSubscription.id,
         status: selectedSubscription.status,
+        cancelledAt: selectedSubscription.status === 'CANCELLED' ? new Date().toISOString() : selectedSubscription.cancelledAt,
+        reactivatedAt: (selectedSubscription.cancelledAt !== null && selectedSubscription.status === 'ACTIVE') ? new Date().toISOString() : selectedSubscription.reactivatedAt,
+      });
+      
+      if (!parsedData.success) {
+        toast.error("Invalid subscription data.");
+        return;
+      }
+
+      const response = await axios.put('/api/subscription', {
+        subscriptionId: parsedData.data.subscriptionId,
+        status: parsedData.data.status,
+        cancelledAt: parsedData.data.cancelledAt,
+        reactivatedAt: parsedData.data.reactivatedAt,
       });
       
       if (response.status === 200) {
@@ -92,7 +122,13 @@ export default function UserDashboard() {
           <h1 className="text-2xl md:text-3xl font-bold text-start">My Subscription</h1>
             <hr className="border-t-2 border-gray-200 my-4" />
             <div className="flex flex-col items-center justify-start h-full">
-              <DataTable data={subscriptions} handleUpdateStatus={updateSubscription} setSelectedSubscription={setSelectedSubscription} loading={loading} setLoading={setLoading} />
+              <DataTable
+                data={subscriptions}
+                handleUpdateStatus={(subscription: Subscription) => updateSubscription(subscription)}
+                setSelectedSubscription={setSelectedSubscription}
+                loading={loading}
+                setLoading={setLoading}
+              />
             </div>
         </div>
       </div>

@@ -42,6 +42,7 @@ const DateRangeSchema = z.object({
             price: true,
             status: true,
             createdAt: true,
+            reactivatedAt: true,
         }
         });
 
@@ -57,9 +58,19 @@ const DateRangeSchema = z.object({
             },
         });
 
+        const reactivations = await prisma.subscription.count({
+            where: {
+            reactivatedAt: {
+                gte: start,
+                lte: end,
+            },
+            },
+        });
+
         return NextResponse.json({
             newSubscriptions,
             mrr,
+            reactivations,
             activeSubscriptions,
         });
     } catch (error) {

@@ -36,6 +36,8 @@ model Subscription {
   userId        Int
   allergies     String?
   createdAt     DateTime @default(now())
+  cancelledAt   DateTime?
+  reactivatedAt DateTime?
   price         Int
   mealPlan      String
   mealType      String[]

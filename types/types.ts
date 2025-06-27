@@ -7,6 +7,8 @@ export type Subscription = {
   mealType: string[];
   deliveryDays: string[];
   status: "ACTIVE" | "PAUSED" | "CANCELLED";
+  cancelledAt?: string | null;
+  reactivatedAt?: string | null;
 };
 
 export type AdminDashboardData = {

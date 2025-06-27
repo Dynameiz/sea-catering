@@ -16,8 +16,20 @@ const SubscriptionSchema = z.object({
 });
 
 const UpdateSchema = z.object({
-    subscriptionId: z.number(),
-    status: z.enum(["ACTIVE", "PAUSED", "CANCELLED"]),
+  subscriptionId: z.number(),
+  status: z.enum(["ACTIVE", "PAUSED", "CANCELLED"]),
+  cancelledAt: z
+    .string()
+    .optional()
+    .refine(val => val === undefined || !isNaN(Date.parse(val)), {
+      message: "Invalid cancelledAt",
+    }),
+  reactivatedAt: z
+    .string()
+    .optional()
+    .refine(val => val === undefined || !isNaN(Date.parse(val)), {
+      message: "Invalid reactivatedAt",
+    }),
 });
 
 const DeleteSchema = z.object({
@@ -105,12 +117,19 @@ export async function GET() {
 export async function PUT(req: Request) {
     try {
         const body = await req.json();
-        const parsedData = UpdateSchema.parse(body);
+        const parsedData = UpdateSchema.parse({
+            subscriptionId: body.subscriptionId,
+            status: body.status,
+            cancelledAt: body.status === "CANCELLED" ? new Date().toISOString() : body.cancelledAt,
+            reactivatedAt: (body.cancelledAt !== null && body.status === "ACTIVE") ? new Date().toISOString() : body.reactivatedAt,
+        });
 
         const updatedSubscription = await prisma.subscription.update({
             where: { id: parsedData.subscriptionId },
             data: {
                 status: parsedData.status,
+                cancelledAt: parsedData.cancelledAt,
+                reactivatedAt: parsedData.reactivatedAt,
             }
         });
 
