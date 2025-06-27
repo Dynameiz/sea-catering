@@ -124,6 +124,41 @@ export default function Register() {
       });
       return;
     }
+    if (!/(?=.*[a-z])/.test(data.password)) {
+      setLoading(false);
+      toast.error("Password must contain at least one lowercase letter", {
+        position: "top-center",
+        duration: 3000,
+      });
+      return;
+    }
+    if (!/(?=.*[A-Z])/.test(data.password)) {
+      setLoading(false);
+      toast.error("Password must contain at least one uppercase letter", {
+        position: "top-center",
+        duration: 3000,
+      });
+      return;
+    }
+    if (!/(?=.*\d)/.test(data.password)) {
+      setLoading(false);
+      toast.error(
+        "Password must contain at least one number", {
+          position: "top-center",
+          duration: 3000,
+        }
+      );
+      return;
+    }
+    if (!/(?=.*[!@#$%^&*()_\-+=\[\]{};':"\\|,.<>/?`~])/.test(data.password)) {
+      setLoading(false);
+      toast.error("Password must contain at least one unique symbol", {
+        position: "top-center",
+        duration: 3000,
+      });
+      return;
+    }
+    
     if (data.password !== data.confirmPassword) {
       setLoading(false);
       toast.error("Passwords do not match", {
@@ -194,24 +229,15 @@ export default function Register() {
           <form
             onSubmit={(e) => {
               e.preventDefault(); // prevent default form refresh
-              setLoading(true);
-              const result = UserSchema.safeParse({
-                firstName,
-                lastName,
-                username,
-                phoneNumber,
-                password,
-                confirmPassword,
-              });
-              if (result.success) {
-                onSubmit(result.data);
-              } else {
-                setLoading(false);
-                toast.error("Please fill in all fields correctly.", {
-                  position: "top-center",
-                  duration: 3000,
+                onSubmit({
+                  firstName,
+                  lastName,
+                  username,
+                  phoneNumber,
+                  password,
+                  confirmPassword
                 });
-              }
+                setLoading(false);
             }}
             className={`${dmSans.variable} flex flex-col items-center justify-center`}
           >

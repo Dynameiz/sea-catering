@@ -34,6 +34,25 @@ export default function Login() {
   const signUpText = "Don't have an account?";
   
   const onSubmit = async (data: z.infer<typeof loginSchema>) => {
+
+    if (!data.username) {
+      setLoading(false);
+      toast.error("Username is required", {
+        position: "top-center",
+        duration: 3000,
+      });
+      return;
+    }
+
+    if (!data.password) {
+      setLoading(false);
+      toast.error("Password is required", {
+        position: "top-center",
+        duration: 3000,
+      });
+      return;
+    }
+
     const response = await signIn("credentials", {
       username: data.username.toLowerCase(),
       password: data.password,
@@ -75,16 +94,7 @@ export default function Login() {
             onSubmit={(e) => {
               e.preventDefault(); // prevent default form refresh
               setLoading(true);
-              const result = loginSchema.safeParse({ username, password });
-              if (result.success) {
-                onSubmit(result.data);
-              } else {
-                setLoading(false);
-                toast.error("Please fill in all fields correctly.", {
-                  position: "top-center",
-                  duration: 3000,
-                });
-              }
+              onSubmit({ username, password });
             }}
             className={`${dmSans.variable} flex flex-col items-center justify-center`}
           >
