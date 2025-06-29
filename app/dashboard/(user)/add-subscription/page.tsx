@@ -8,6 +8,7 @@ import { AnimatePresence } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { DM_Sans } from "next/font/google";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod/v4";
@@ -152,6 +153,7 @@ export default function AddSubscription() {
           position: "top-center",
           duration: 3000,
         });
+        redirect("/dashboard");
       } else {
         toast.error("Failed to subscribe. Please try again later.", {
           position: "top-center",

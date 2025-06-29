@@ -113,14 +113,14 @@ export default function Navbar() {
                     </motion.button>
                   </div>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="end">
-                  <DropdownMenuItem className='flex items-center cursor-pointer text-lg' onClick={() => handleNavigation('/dashboard')}>
-                    <LucideUserRound className='text-beige' />
+                <DropdownMenuContent className="w-56 bg-light-beige border-beige" align="end">
+                  <DropdownMenuItem className='flex items-center cursor-pointer text-lg focus:bg-beige transition-colors duration-300' onClick={() => handleNavigation('/dashboard')}>
+                    <LucideUserRound className='text-dark-grey' />
                     Profile
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem className='flex items-center cursor-pointer text-lg' onClick={() => signOut({ callbackUrl: '/' })}>
-                    <LogOutIcon className='text-beige' />
+                  <DropdownMenuItem className='flex items-center cursor-pointer text-lg focus:bg-beige transition-colors duration-300' onClick={() => signOut({ callbackUrl: '/' })}>
+                    <LogOutIcon className='text-dark-grey' />
                     Log out
                   </DropdownMenuItem>
                 </DropdownMenuContent>

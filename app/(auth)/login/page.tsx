@@ -100,7 +100,7 @@ export default function Login() {
             <h1 className="text-2xl md:text-4xl font-bold mb-8">Log in</h1>
             <div className="flex flex-col items-start w-full mb-4">
               <p className="text-sm mb-1 font-semibold">Username</p>
-              <Input type="text" placeholder="Enter Username / Phone Number" value={username} onChange={(e) => setUsername(e.target.value)}/>
+              <Input type="text" placeholder="Enter Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
             </div>
             <div className="flex flex-col items-start w-full mb-4">
               <p className="text-sm mb-1 font-semibold">Password</p>

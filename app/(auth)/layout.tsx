@@ -4,6 +4,8 @@ import Image from "next/image";
 import { Providers } from "../provider";
 import { DynaPuff, DM_Sans } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 const dynaPuff = DynaPuff({
   weight: ["400", "700"],
@@ -24,11 +26,18 @@ export const metadata: Metadata = {
   description: "Healthy Meals, Anytime, Anywhere",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const session = await auth();
+
+  if (session) {
+    redirect("/dashboard");
+  }
+
   return (
     <html lang="en">
       <body

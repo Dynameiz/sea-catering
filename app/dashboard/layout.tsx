@@ -4,6 +4,7 @@ import { Providers } from "../provider";
 import { SidebarClient } from "@/components/ui/SidebarClient";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { Toaster } from "@/components/ui/sonner";
 
 
 export const metadata: Metadata = {
@@ -31,6 +32,7 @@ export default async function RootLayout({
         <Providers>
           <SidebarClient />
           {children}
+          <Toaster />
         </Providers>
       </body>
     </html>
