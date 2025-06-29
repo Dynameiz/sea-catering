@@ -11,6 +11,14 @@ export type Subscription = {
   reactivatedAt?: string | null;
 };
 
+export type Testimonials = {
+  id: number;
+  customerName: string;
+  message: string;
+  rating: number;
+  createdAt: string;
+};
+
 export type AdminDashboardData = {
   newSubscriptions: number;
   mrr: number;

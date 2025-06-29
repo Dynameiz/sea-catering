@@ -9,6 +9,21 @@ const TestimonialSchema = z.object({
     rating: z.number().min(1, "Rating must be at least 1").max(5, "Rating must be at most 5"),
 });
 
+export async function GET() {
+    try {
+        const testimonials = await prisma.testimonial.findMany({
+            orderBy: {
+                createdAt: "desc",
+            },
+        });
+
+        return NextResponse.json(testimonials, { status: 200 });
+    } catch (error) {
+        console.error("Error fetching testimonials:", error);
+        return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    }
+}
+
 export async function POST(req: Request) {
     try {
         const body = await req.json();

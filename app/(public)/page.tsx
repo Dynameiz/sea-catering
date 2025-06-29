@@ -16,6 +16,8 @@ import axios from "axios";
 import Footer from "@/components/ui/Footer";
 import GetStarted from "@/components/ui/GetStarted";
 import Spinner from "@/components/ui/Spinner";
+import { Testimonials } from "@/types/types";
+import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -122,6 +124,9 @@ export default function Home() {
   const { status } = useSession();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [loadingTestimonials, setLoadingTestimonials] = useState(false);
+
+  const [testimonials, setTestimonials] = useState<Testimonials[]>([]);
 
   const [authenticated, setAuthenticated] = useState(false);
   const [name, setName] = useState("");
@@ -143,6 +148,28 @@ export default function Home() {
       setAuthenticated(true);
     }
   }, [status, router]);
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        const response = await axios.get("/api/testimonial");
+        if (response.status === 200) {
+          setTestimonials(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching testimonials:", error);
+        toast.error("Failed to load testimonials.", {
+          position: "top-center",
+          duration: 3000,
+        });
+      } finally {
+        setLoadingTestimonials(false);
+      }
+    };
+    
+    setLoadingTestimonials(true);
+    fetchTestimonials();
+  }, [testimonials.length]);
 
   const onSubmit = async(data: z.infer<typeof TestimonialSchema>) => {
     try {
@@ -380,12 +407,32 @@ export default function Home() {
         </div>
       </section>
       <section className="relative flex flex-col items-center justify-center w-full bg-light-beige overflow-hidden">
-        <div className="container mx-auto flex flex-col items-center justify-center px-4 py-12">
+        <div className="container mx-auto flex flex-col items-center justify-center px-4 mt-8">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center border-b-2 pb-3 border-green">
             Voices of Our Community
           </h1>
         </div>
-        
+          <div className="flex flex-col antialiased bg-grid-white/[0.05] mt-2 items-center justify-center w-full relative overflow-hidden">
+            {loadingTestimonials ? (
+              <div className="flex flex-col items-center justify-center w-full h-64">
+                <div className="flex items-center justify-center animate-spin">
+                  <Logo
+                    width={64}
+                    height={64}
+                    color="#333333"
+                  />
+                </div>
+                <p className="text-lg text-gray-600 mt-4">Loading testimonials...</p>
+              </div>
+            )
+              : <InfiniteMovingCards
+                items={testimonials}
+                direction="right"
+                speed="slow"
+                pauseOnHover={false}
+              />
+            }
+          </div>
         <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3 lg:[&>*:first-child]:col-span-1 lg:[&>*:last-child]:col-span-2 mt-8 mb-12 bg-light-green rounded-2xl shadow-lg ">
             <div className="w-full h-full flex-col items-center justify-center bg-light-green hidden rounded-2xl lg:flex">
             <Image
