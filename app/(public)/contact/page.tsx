@@ -19,9 +19,9 @@ export default function Contact() {
       <section className="flex flex-col items-center justify-center w-full px-4 py-8 mx-auto bg-light-beige-2">
         <div className="container flex flex-col items-center justify-center mx-auto mt-24 text-center">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 p-3 pt-0 border-b-2 border-green">Get in Touch</h1>
-          <p className="text-lg mb-8">
-            Have questions or need assistance? We're here to help! Reach out to us through our WhatsApp community or contact our manager directly.
-          </p>
+            <p className="text-lg mb-8">
+            Have questions or need assistance? We are here to help! Reach out to us through our WhatsApp community or contact our manager directly.
+            </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 max-w-7xl">
             <div className="flex flex-col justify-around items-center bg-white p-6 rounded-lg shadow-md">
               <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 p-1.5 pt-0 border-b-2 border-green">Join Our Community</h2>
