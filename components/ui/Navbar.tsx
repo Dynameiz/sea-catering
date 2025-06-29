@@ -159,7 +159,7 @@ export default function Navbar() {
                     key={page.name}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 1 }}
-                    onClick={() => { handleNavigation(page.link)}}
+                    onClick={() => { handleNavigation(page.link); setHamburgerOpen(false); }}
                     className='text-lg text-beige cursor-pointer'
                   >
                     {page.name}

@@ -225,7 +225,7 @@ export default function Register() {
         </AnimatePresence>
       )}
       <div className="container mx-auto p-4">
-        <div className="max-w-lg mx-auto bg-white rounded-xl shadow-lg p-8">
+        <div className="max-w-lg mx-auto bg-white rounded-xl shadow-lg p-6 md:p-8">
           <form
             onSubmit={(e) => {
               e.preventDefault(); // prevent default form refresh
@@ -241,8 +241,8 @@ export default function Register() {
             }}
             className={`${dmSans.variable} flex flex-col items-center justify-center`}
           >
-            <h1 className="text-4xl font-bold mb-8">Register</h1>
-            <div className="grid grid-cols-2 gap-4 w-full mb-4">
+            <h1 className="text-2xl md:text-4xl font-bold mb-6 md:mb-8">Register</h1>
+            <div className="grid grid-cols-2 gap-2 md:gap-4 w-full mb-4">
               <div className="flex flex-col items-start w-full">
                 <p className="text-sm mb-1 font-semibold">First Name <span className="text-red-700">*</span></p>
                 <Input

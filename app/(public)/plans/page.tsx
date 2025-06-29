@@ -73,7 +73,7 @@ export default function Plans() {
   return (
     <div className={`${dmSans.className} relative flex-col items-center justify-center w-full min-h-screen`}>
       <section className="flex flex-col items-center justify-center w-full px-4 mx-auto bg-light-beige-2">
-        <div className="container mx-auto flex flex-col items-center justify-center mt-16 py-8">
+        <div className="container mx-auto flex flex-col items-center justify-center mb-8 mt-16 md:mt-24 py-8">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 p-3 pt-0 border-b-2 border-green">Meal Plans</h1>
           <p className="text-lg max-w-2xl md:max-w-full text-center">
             Choose a plan that suits your needs. We offer flexible options to help you get the most out of our services.
@@ -100,27 +100,12 @@ export default function Plans() {
                       price={plan.price}
                     />
                   </ModalContent>
-                  <ModalFooter className="gap-4">
-                    <motion.button
-                      className="bg-green hover:bg-dark-green-2 transition-colors duration-200 text-beige text-md px-3 py-2 rounded-md cursor-pointer"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => {handleClick(plan.name)}}
-                    >
-                      Choose Plan
-                    </motion.button>
-                  </ModalFooter>
                 </ModalBody>
                 </Modal>
             ))}
           </div>
         </div>
       </section>
-      {/* <section className="flex flex-col items-center justify-center w-full py-24 lg:py-16 bg-light-beige">
-        <div className="container mx-auto flex flex-col items-center justify-center">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 p-3 pt-0 border-b-2 border-green">Menu</h1>
-        </div>
-      </section> */}
       <GetStarted />
       <Footer />
     </div>

@@ -170,13 +170,14 @@ export const SidebarLink = ({
   link: Links;
   className?: string;
 }) => {
-  const { open, animate } = useSidebar();
+  const { open, setOpen , animate } = useSidebar();
   return (
     <div
       className={cn(
         "flex items-center justify-start gap-2 cursor-pointer group/sidebar py-2",
         className
       )}
+      onClick={() => setOpen(false)}
       {...props}
     >
       {link.icon}

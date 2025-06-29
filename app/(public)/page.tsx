@@ -324,8 +324,7 @@ export default function Home() {
                     <motion.div
                     key={idx}
                     whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 1 }}
-                    className="max-w-[280px] min-w-[280px] bg-white rounded-xl shadow-md flex flex-col items-center cursor-pointer flex-shrink-0"
+                    className="max-w-[280px] min-w-[280px] bg-white rounded-xl shadow-md flex flex-col items-center flex-shrink-0"
                     >
                     <Image
                       src={item.src || "dummy.png"}
@@ -349,10 +348,10 @@ export default function Home() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => handleNavigation("/menu")}
+            onClick={() => handleNavigation("/plans")}
             className="w-fit px-5 py-3 md:px-8 md:py-3 rounded-lg bg-green text-light-beige sm:text-xl font-semibold shadow-md cursor-pointer"
           >
-            View Full Menu
+            Get Started
           </motion.button>
         </div>
       </section>

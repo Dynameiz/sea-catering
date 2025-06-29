@@ -88,7 +88,7 @@ export default function Login() {
         </AnimatePresence>
       )}
       <div className="container mx-auto p-4">
-        <div className="max-w-lg mx-auto bg-white rounded-xl shadow-lg p-8">
+        <div className="max-w-lg mx-auto bg-white rounded-xl shadow-lg p-6 md:p-8">
           <form
             onSubmit={(e) => {
               e.preventDefault(); // prevent default form refresh
@@ -97,7 +97,7 @@ export default function Login() {
             }}
             className={`${dmSans.variable} flex flex-col items-center justify-center`}
           >
-            <h1 className="text-4xl font-bold mb-8">Log in</h1>
+            <h1 className="text-2xl md:text-4xl font-bold mb-8">Log in</h1>
             <div className="flex flex-col items-start w-full mb-4">
               <p className="text-sm mb-1 font-semibold">Username</p>
               <Input type="text" placeholder="Enter Username / Phone Number" value={username} onChange={(e) => setUsername(e.target.value)}/>
@@ -108,7 +108,7 @@ export default function Login() {
             </div>
             <button
               type="submit"
-              className="w-full mt-4 px-6 py-3 rounded-lg bg-green text-light-beige text-lg sm:text-xl font-semibold shadow-md transition-colors duration-300 cursor-pointer"
+              className="w-full mt-4 px-6 py-3 rounded-lg bg-green text-light-beige sm:text-xl font-semibold shadow-md transition-colors duration-300 cursor-pointer"
             >
               Log in
             </button>
