@@ -2,7 +2,7 @@
 
 <h2 align="center"><b>SEA Catering: Healthy Meals, Anytime, Anywhere</b></h2>
 
-<p align="center">Sea Catering is a personalized meal subscription service built with Next.js 15, Prisma ORM, PostgreSQL, and NextAuth v5. It allows users to browse meal plans, customize subscriptions, and securely manage their account.</p>
+<p align="center">Sea Catering is a personalized meal subscription service built with <b>Next.js 15</b>, <b>Prisma ORM</b>, <b>PostgreSQL</b>, and <b>NextAuth v5</b>. It allows users to browse meal plans, customize subscriptions, and securely manage their account.</p>
 
 ---
 
@@ -71,7 +71,7 @@ npm install
 3. **Setup environment variables** Create a `.env` file and fill in:
 
 ```env
-DATABASE_URL=your_supabase_postgres_connection
+DATABASE_URL=your_supabase_pooler_connection_url  # Use the pooled connection
 AUTH_SECRET=your_nextauth_secret
 NEXTAUTH_URL=http://localhost:3000
 ```
@@ -88,7 +88,13 @@ npx prisma generate
 npx prisma db push
 ```
 
-6. **Start the dev server**
+6. **Seed the database with sample data**
+
+```bash
+npx prisma db seed
+```
+
+7. **Start the dev server**
 
 ```bash
 npm run dev
