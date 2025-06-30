@@ -85,9 +85,10 @@ export default function AdminDashboard() {
           selected={range}
           onSelect={handleSelect}
           disabled={{ after: new Date() }}
+          animate={true}
           className="border border-border shadow-sm rounded-lg mt-2 overflow-hidden"
         />
-        <Button className="w-full mt-2" variant="default" onClick={applyFilter}>
+        <Button className="w-full mt-2 cursor-pointer" variant="default" onClick={applyFilter}>
           Filter Data
         </Button>
           </div>
@@ -141,7 +142,7 @@ export default function AdminDashboard() {
             </div>
           </div>
           {testimonials.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 overflow-auto max-h-72">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 overflow-auto max-h-72 rounded-lg">
           {testimonials.map((testimonial, index) => (
             <div key={index} className="bg-light-beige-2 p-4 gap-4 rounded-lg shadow-sm">
               <p className="text-dark-grey text-sm">{testimonial.message}</p>

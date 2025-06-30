@@ -218,7 +218,7 @@ export default function Home() {
 
   return (
     <div
-      className={`${dmSans.className} relative flex-col items-center justify-center w-full min-h-screen`}
+      className={`${dmSans.className} relative flex-col items-center justify-center w-full`}
     >
       {loading && (
         <AnimatePresence>
@@ -226,7 +226,7 @@ export default function Home() {
         </AnimatePresence>
       )}
       <section className="flex flex-col items-center justify-center w-full bg-light-beige">
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-center w-full h-full mt-16 overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center w-full h-full mt-16 relative overflow-x-hidden">
           <motion.div
             initial={{ x: -1000 }}
             animate={{ x: 0 }}
