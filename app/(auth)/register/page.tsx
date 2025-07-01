@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import axios from "axios";
 import { AnimatePresence } from "framer-motion";
 import Spinner from "@/components/ui/Spinner";
+import { Eye, EyeOff } from "lucide-react";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -55,6 +56,8 @@ export default function Register() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const onSubmit = async (data: z.infer<typeof UserSchema>) => {
     if (data.firstName.length < 1 || data.firstName.length > 50) {
@@ -281,22 +284,52 @@ export default function Register() {
               />
             </div>
             <div className="flex flex-col items-start w-full mb-4">
-              <p className="text-sm mb-1 font-semibold">Password <span className="text-red-700">*</span></p>
-              <Input
-                type="password"
-                placeholder="Enter Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+                <p className="text-sm mb-1 font-semibold">Password <span className="text-red-700">*</span></p>
+                <div className="flex items-center w-full relative">
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Enter Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    onCopy={(e) => e.preventDefault()}
+                    onCut={(e) => e.preventDefault()}
+                    onContextMenu={(e) => e.preventDefault()}
+                    autoComplete="current-password"
+                    className="pr-10"
+                  />
+                  <button
+                    type="button"
+                    className="absolute right-0 mr-3 md:mr-4 text-green cursor-pointer"
+                    onClick={() => setShowPassword(!showPassword)}
+                    tabIndex={-1}
+                  >
+                    {showPassword ? <EyeOff /> : <Eye />}
+                  </button>
+                </div>
             </div>
             <div className="flex flex-col items-start w-full mb-4">
               <p className="text-sm mb-1 font-semibold">Confirm Password <span className="text-red-700">*</span></p>
+              <div className="flex items-center w-full relative">
               <Input
-                type="password"
+                type={showConfirmPassword ? "text" : "password"}
                 placeholder="Confirm Your Password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+                onCopy={(e) => e.preventDefault()}
+                onCut={(e) => e.preventDefault()}
+                onContextMenu={(e) => e.preventDefault()}
+                autoComplete="new-password"
+                className="pr-10"
               />
+              <button
+                type="button"
+                className="absolute right-0 mr-3 md:mr-4 text-green cursor-pointer"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                tabIndex={-1}
+              >
+                {showConfirmPassword ? <EyeOff /> : <Eye />}
+              </button>
+              </div>
             </div>
             <button
               type="submit"

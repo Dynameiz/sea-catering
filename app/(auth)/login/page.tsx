@@ -2,6 +2,7 @@
 import { Input } from "@/components/ui/input";
 import Spinner from "@/components/ui/Spinner";
 import { AnimatePresence } from "framer-motion";
+import { Eye, EyeOff } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { DM_Sans } from "next/font/google";
 import { useRouter } from "next/navigation";
@@ -27,6 +28,7 @@ export default function Login() {
   
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const [loading, setLoading] = useState(false);
   
@@ -103,8 +105,28 @@ export default function Login() {
               <Input type="text" placeholder="Enter Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
             </div>
             <div className="flex flex-col items-start w-full mb-4">
-              <p className="text-sm mb-1 font-semibold">Password</p>
-              <Input type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <p className="text-sm mb-1 font-semibold">Password</p>
+                <div className="flex items-center w-full relative">
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Enter Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    onCopy={(e) => e.preventDefault()}
+                    onCut={(e) => e.preventDefault()}
+                    onContextMenu={(e) => e.preventDefault()}
+                    autoComplete="current-password"
+                    className="pr-10"
+                  />
+                  <button
+                    type="button"
+                    className="absolute right-0 mr-3 md:mr-4 text-green cursor-pointer"
+                    onClick={() => setShowPassword(!showPassword)}
+                    tabIndex={-1}
+                  >
+                    {showPassword ? <EyeOff /> : <Eye />}
+                  </button>
+                </div>
             </div>
             <button
               type="submit"
