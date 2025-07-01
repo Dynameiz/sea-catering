@@ -7,11 +7,11 @@ import axios from "axios";
 import { AnimatePresence } from "framer-motion";
 import { Eye, EyeOff } from "lucide-react";
 import { Session } from "next-auth";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { DM_Sans } from "next/font/google";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod/v4";
 
@@ -23,17 +23,18 @@ const dmSans = DM_Sans({
 });
 
 const UpdateUserSchema = z.object({
-    id: z.number(),
-    fullName: z.string().min(1, "Full Name is required").max(100, "Full name must be less than 100 characters").optional(),
-    username: z.string().min(1, "Username is required").max(50, "Username must be less than 50 characters").optional(),
-    phoneNumber: z.string().min(1, "Phone number is required").max(15, "Phone number must be less than 15 characters").optional(),
+  id: z.number(),
+  fullName: z.string().min(1, "Full Name is required").max(100, "Full name must be less than 100 characters").optional(),
+  username: z.string().min(1, "Username is required").max(50, "Username must be less than 50 characters").optional(),
+  phoneNumber: z.string().min(1, "Phone number is required").max(15, "Phone number must be less than 15 characters").optional(),
 });
 
 export default function Profile() {
-
+  
   const { data: session } = useSession();
-
+  
   const [loading, setLoading] = useState(false);
+  const [modalType, setModalType] = useState<"submit" | "changePassword" | null>(null);
 
   const [userData, setUserData] = useState<z.infer<typeof UpdateUserSchema>>({
     id: session?.user.id ? parseInt(session.user.id, 10) : 0,
@@ -43,7 +44,6 @@ export default function Profile() {
   });
 
   const validateForm = () => {
-
     if ((userData.fullName ?? "") === session?.user.fullName &&
         (userData.username ?? "") === session?.user.username &&
         (userData.phoneNumber ?? "") === session?.user.phoneNumber) {
@@ -101,7 +101,6 @@ export default function Profile() {
     return true;
   };
 
-  const [modalType, setModalType] = useState<"submit" | "changePassword" | null>(null);
 
   const handleUpdateUser = async () => {
     setLoading(true);
@@ -132,7 +131,9 @@ export default function Profile() {
           position: "top-center",
           duration: 3000,
         });
-        setModalType(null);
+        setTimeout(() => {
+          signOut();
+        }, 1500);
       } else {
         toast.error("Failed to update profile", {
           position: "top-center",
@@ -156,6 +157,16 @@ export default function Profile() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!session) return;
+    setUserData({
+      id: session.user.id ? parseInt(session.user.id, 10) : 0,
+      fullName: session.user.fullName || "",
+      username: session.user.username || "",
+      phoneNumber: session.user.phoneNumber || "",
+    });
+  }, [session]);
 
   return (
     <div className={`${dmSans.className} flex flex-1`}>
